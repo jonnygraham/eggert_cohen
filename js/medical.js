@@ -28,7 +28,7 @@ $(document).ready(function() {
 				str +="</ul>"
 				$.each(obj, function(key, value){
 					if (key !== 'location' && key !== 'name') {
-						if (key === 'phone') value = "<a href='tel:"+value+"'>"+value+"</a>"
+						if (key === 'phone') value = "<a href='tel:"+value.replace(/-/g,'')+"'>"+value+"</a>"
 						str +="<li>"+key+": "+value+"</li>"
 					}
 				});
