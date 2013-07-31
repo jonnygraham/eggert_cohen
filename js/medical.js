@@ -90,7 +90,7 @@ $(document).ready(function() {
 	getCurrentLocation();
 	
 	$('input[name=searchBy]:radio').change(function () {
-		
+		alert("oo")
 		var chosenSearchBy = $('input[name=searchBy]:radio:checked').val()
 		if (chosenSearchBy === 'area') {
 			$('#byArea').siblings().hide()
@@ -176,7 +176,7 @@ function handleCurrentPosition(position) {
 	updateMedicalCentersWithDistance();
 	// If user didn't choose a radio button yet, default to 'nearest'
 	if ($('input[name=searchBy]:radio:checked').length === 0) {
-		$("input[name=searchBy]:radio[name=nearest]").prop("checked", true)
+		$("input[name=searchBy]:radio[value=nearest]").click()
 	}
 	
 }
