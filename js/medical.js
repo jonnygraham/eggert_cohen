@@ -90,7 +90,6 @@ $(document).ready(function() {
 	getCurrentLocation();
 	
 	$('input[name=searchBy]:radio').change(function () {
-		alert("oo")
 		var chosenSearchBy = $('input[name=searchBy]:radio:checked').val()
 		if (chosenSearchBy === 'area') {
 			$('#byArea').siblings().hide()
