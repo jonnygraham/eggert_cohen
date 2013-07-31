@@ -27,31 +27,35 @@ function getCurrentLocation() {
 }
 
 function prepareData() {
-	medicalCentersList = new Array()
-	$.getJSON("data/medicalCenters.json",function(data) {
-		$.each(data, function(idx, obj){
-			var id = idx;
-			var latLng = new google.maps.LatLng(obj.location.latitude,obj.location.longitude);
-			var marker = new google.maps.Marker({
-				position: latLng,
-				map: map,
-				title: obj.name
-			});
-			var infowindow = new google.maps.InfoWindow({
-				content: '<div>'+obj.name+'</div>'
-			});
-			google.maps.event.addListener(marker, 'click', function() {
-				if (typeof openInfoWindow !== 'undefined') openInfoWindow.close();
-				openInfoWindow = infowindow;
-				infowindow.open(map,marker);
-			});
-			medicalCentersList[idx] = obj
-			obj.id = id
-			obj.latLng = latLng
-			obj.marker = marker
-			obj.infowindow = infowindow
+	function processMedicalCenter(idx,obj) {
+		var id = idx;
+		var latLng = new google.maps.LatLng(obj.location.latitude,obj.location.longitude);
+		var marker = new google.maps.Marker({
+			position: latLng,
+			map: map,
+			title: obj.name
 		});
+		var infowindow = new google.maps.InfoWindow({
+			content: '<div>'+obj.name+'</div>'
+		});
+		google.maps.event.addListener(marker, 'click', function() {
+			if (typeof openInfoWindow !== 'undefined') openInfoWindow.close();
+			openInfoWindow = infowindow;
+			infowindow.open(map,marker);
+		});
+		medicalCentersList[idx] = obj
+		obj.id = id
+		obj.latLng = latLng
+		obj.marker = marker
+		obj.infowindow = infowindow
+	}
+	
+	medicalCentersList = []
+	$.each(medicalCenters,processMedicalCenter)
+	/*$.getJSON("data/medicalCenters.json",function(medicalCenters) {
+		$.each(medicalCenters,processMedicalCenter)
 	});
+	*/
 }
 
 function updateMedicalCentersWithDistance() {
@@ -87,7 +91,7 @@ $(document).ready(function() {
 	
 	$('input[name=searchBy]:radio').change(function () {
 		
-		chosenSearchBy = $('input[name=searchBy]:radio:checked').val()
+		var chosenSearchBy = $('input[name=searchBy]:radio:checked').val()
 		if (chosenSearchBy === 'area') {
 			$('#byArea').siblings().hide()
 			$('#byArea').show()
@@ -170,6 +174,11 @@ function handleCurrentPosition(position) {
 	});
 	map.center(myPos);
 	updateMedicalCentersWithDistance();
+	// If user didn't choose a radio button yet, default to 'nearest'
+	if ($('input[name=searchBy]:radio:checked').length === 0) {
+		$("input[name=searchBy]:radio[name=nearest]").prop("checked", true)
+	}
+	
 }
 
 function showError(error)
