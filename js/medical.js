@@ -19,10 +19,10 @@ function deg2rad(deg) {
 function getCurrentLocation() {
 	if (navigator.geolocation)
     {
-		navigator.geolocation.getCurrentPosition(handleCurrentPosition);
+		navigator.geolocation.getCurrentPosition(handleCurrentPosition,handleNoGeo);
     }
 	else {
-		//handleNoGeo();
+		handleNoGeo();
 	}
 }
 
@@ -70,7 +70,7 @@ function updateMedicalCentersWithDistance() {
 
 function populateAreaList() {
 	var areas = medicalCentersList.map(function(obj) { return obj.area })
-	var distinctAreas = $.unique(areas)
+	var distinctAreas = $.unique(areas).sort()
 	$.each(distinctAreas,function(idx, area) {
 		$('#areaSelector').append('<option value="'+area+'">'+area+'</option>')
 	})
@@ -90,10 +90,12 @@ $(document).ready(function() {
 	getCurrentLocation();
 	
 	$('input[name=searchBy]:radio').change(function () {
+
 		var chosenSearchBy = $('input[name=searchBy]:radio:checked').val()
-		if (chosenSearchBy === 'area') {
+		if (chosenSearchBy === 'byArea') {
 			$('#byArea').siblings().hide()
 			$('#byArea').show()
+			$('#areaSelector').trigger('change');
 		}
 		else {
 			$('#nearest').siblings().hide()
@@ -110,7 +112,6 @@ $(document).ready(function() {
 		}
 	})
 	$("#areaSelector").change(function () {
-		alert("change areaSelector")
 		var area = $("#areaSelector option:selected").val();
 		displayMedicalCenters(100,function(medicalCenter) {
 			return medicalCenter.area === area;
@@ -180,6 +181,11 @@ function handleCurrentPosition(position) {
 	
 }
 
+function handleNoGeo(error) {
+	if ($('input[name=searchBy]:radio:checked').length === 0) {
+		$("input[name=searchBy]:radio[value=byArea]").click()
+	}
+}
 function showError(error)
   {
   switch(error.code) 

@@ -22,7 +22,7 @@
 <h1>Egert and Cohen Medical Services Locator</h1>
 <div>
 	<input type="radio" name="searchBy" value="nearest">Nearest to me</input>
-	<input type="radio" name="searchBy" value="area">By area</input>
+	<input type="radio" name="searchBy" value="byArea">By area</input>
 </div>
 <div id="selector-div">
 	<div id="byArea" style="display:none">
@@ -32,9 +32,13 @@
 		Searching for your current location
 	</div>
 </div>
-<div>
-	<div style="width:100%;height:200px" id="medicalCenters"></div>
-    <div style="width:100%;height:400px" id="map-canvas"></div>
+<div style="height:100%">
+	<div style="width:100%;height:140px;overflow-y:scroll" id="medicalCenters"></div>
+    <div style="width:100%;height:400px" id="mapContainer">
+		<div style="width:99%;height:99%;margin: auto auto">
+			<div id="map-canvas"></div>
+		</div>
+	</div>
 </div>
 </body>
 </html>
