@@ -1,6 +1,7 @@
-package com.jonny
-
 import scala.io.Source
+import org.codehaus.jackson.map.ObjectMapper
+import java.io.StringWriter
+import com.fasterxml.jackson.module.scala.DefaultScalaModule
 
 object MedicalCentersParser extends App {
 
@@ -9,7 +10,7 @@ object MedicalCentersParser extends App {
   var area = ""
   var centreType = ""
   var medicalCenters : List[MedicalCentre] = Nil
-  Source.fromFile("medicalCentres.csv").getLines.drop(1).foreach{ line =>
+  Source.fromFile("C:/dev/egert_cohen/medicalCentres.csv").getLines.drop(1).foreach{ line =>
     val cols : List[String] = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)").toList.map(s=>stripQuotes(s).trim)
 	cols match {
 	  case Nil  => // do nothing
