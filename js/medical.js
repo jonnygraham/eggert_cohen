@@ -115,7 +115,7 @@ $(document).ready(function() {
 				$('#nearest').html("Unable to find your location! Please search by area.")
 			}
 			else {
-				$('#nearest').html("Showing the 10 medical centers nearest to "+"<a href='jumpToMyLocation()'>your location</a>")
+				$('#nearest').html("Showing the 10 medical centers nearest to "+"<a href='javascript:jumpToMyLocation()'>your location</a>")
 				displayMedicalCenters(10,function(medicalCenter) {
 					return true;
 				});
