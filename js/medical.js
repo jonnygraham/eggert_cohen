@@ -115,7 +115,7 @@ $(document).ready(function() {
 				$('#nearest').html("Unable to find your location! Please search by area.")
 			}
 			else {
-				$('#nearest').html("Showing the 10 medical centers nearest to your location")
+				$('#nearest').html("Showing the 10 medical centers nearest to "+"<a href='jumpToMyLocation()'>your location</a>")
 				displayMedicalCenters(10,function(medicalCenter) {
 					return true;
 				});
@@ -176,6 +176,10 @@ function showMedicalCenterOnMap(id) {
 	map.panTo(medicalCenter.latLng);
 	window.setTimeout(function(){google.maps.event.trigger(medicalCenter.marker, 'click');},1000);
 	//Todo instead of waiting 2 secs, should really listen on the 'idle' event
+}
+
+function jumpToMyLocation() {
+	map.setCenter(myPos);
 }
 
 function getMedicalCenterById(id) {
