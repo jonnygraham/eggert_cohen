@@ -17,8 +17,8 @@ function deg2rad(deg) {
 }
 
 function getCurrentLocation() {
-	handleCurrentPosition({coords: {longitude:35.217254, latitude: 31.780496}})
-	return
+	/*handleCurrentPosition({coords: {longitude:35.217254, latitude: 31.780496}})
+	return*/
 	if (navigator.geolocation)
     {
 		navigator.geolocation.getCurrentPosition(handleCurrentPosition,handleNoGeo);
@@ -89,7 +89,7 @@ function populateAreaList() {
 $(document).ready(function() {
 	
     var mapOptions = {
-    zoom: 14,
+    zoom: 18,
     center: new google.maps.LatLng(31.780496,35.217254),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
@@ -191,7 +191,7 @@ function handleCurrentPosition(position) {
 					position: myPos,
 					map: map,
 					title: markerTitle,
-					color: 'blue'
+					icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
 				});
 	var infowindow = new google.maps.InfoWindow({
 		content: '<div>'+markerTitle+'</div>'
