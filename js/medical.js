@@ -85,9 +85,9 @@ function populateAreaList() {
 		$('#areaSelector').append('<option value="'+area+'">'+area+'</option>')
 	})
 }
-
+var myScroll;
 $(document).ready(function() {
-	
+	myScroll = new iScroll('scroll-wrapper');
     var mapOptions = {
     zoom: 18,
     center: new google.maps.LatLng(31.780496,35.217254),
@@ -147,7 +147,7 @@ function displayMedicalCenters(maxToDisplay, filterFunction) {
 	var contH = $('#top-section').height()
 	var upH = $('#top-section-a').height();
 	
-	$('#medicalCenters').css('height' , contH-upH);
+	//$('#medicalCenters').css('height' , contH-upH);
 	$("#medicalCenters").html(str)
 }
 function displayMedicalCenter(obj) {

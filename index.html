@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html style="height:100%">
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<style>
       html, body, #map-canvas {
         margin: 0;
@@ -19,16 +21,29 @@
 	  }
 	  
 	  #medicalCenters {
-		height: 100%;
+		//height: 100%;
 		width: 100%;
-		overflow-y: auto;
+		//overflow-y: auto;
 	  }
 	  
 	  ul {
 		margin: 0
 	}
     </style>
-	<script src="js/jquery-1.9.1.js"></script>
+<!--	
+    <link rel="stylesheet" href="jquery.mobile-1.3.1.min.css"/>
+    <link rel="stylesheet" href="jquery.mobile.iscrollview.css"/>
+    <link rel="stylesheet" href="jquery.mobile.iscrollview-pull.css"/>
+    <link rel="stylesheet" href="additional-site-specific-styles.css"/>
+	
+    <script src="jquery-1.9.1.min.js"></script>
+    <script src="jquery.mobile-1.3.1.min.js"></script>
+    <script src="iscroll.js"></script>
+    <script src="jquery.mobile.iscrollview.js"></script>
+    <script src="additional-site-specific-scripts.js"></script>
+-->
+<script src="js/jquery-1.9.1.js"></script>
+<script src="js/iscroll-lite.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script src="data/medicalCenters.json"></script>
 <script src="js/medical.js"></script>
@@ -38,7 +53,7 @@
 <body style="height:100%">
 <div id="top-section" style="width:100%;height:50%">
 	<!--<div><img src="images/header.jpg"/></div>-->
-		<div id="top-section-a"><div id="header">Egert & Cohen Insturance</div>
+		<div id="top-section-a"><div id="header">Egert & Cohen Insurance</div>
 		<div>
 			Show Medical Centres <input type="radio" name="searchBy" value="nearest">nearest to me</input>
 			<input type="radio" name="searchBy" value="byArea">by area</input>
@@ -53,7 +68,9 @@
 		</div>
 		</div>
 	<!--<div style="overflow-y:auto;height:100px">  position:absolute;left:0;bottom:-400px;overflow-y: auto>-->
-		<div id="medicalCenters">
+		<div id="scroll-wrapper">
+			<div id="medicalCenters">
+		</div>
 		</div>
 	<!--</div>-->
 </div>
