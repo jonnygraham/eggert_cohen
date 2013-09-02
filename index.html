@@ -1,12 +1,20 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html>
 <head>
 <style>
+=======
+<html style="height:100%">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+	<style>
+>>>>>>> gh-pages
       html, body, #map-canvas {
         margin: 0;
         padding: 0;
         height: 100%;
       }
+<<<<<<< HEAD
     </style>
 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
@@ -27,5 +35,63 @@ Choose an area:
 <div style="width:50%;float:left" id="area">dd</div>
     <div style="width:50%;float:right;height:400px" id="map-canvas"></div>
 	</div>
+=======
+	  
+	  #selector-div {
+		height: 24px
+	  }
+	  
+	  #header {
+		font-weight: bold;
+		aligh:center
+	  }
+	  
+	  #medicalCenters {
+		height: 100%;
+		width: 100%;
+		overflow-y: auto;
+	  }
+	  
+	  ul {
+		margin: 0
+	}
+    </style>
+	<script src="js/jquery-1.9.1.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script src="data/medicalCenters.json"></script>
+<script src="js/medical.js"></script>
+<title>Egert and Cohen Medical Services Locator</title>
+</head>
+
+<body style="height:100%">
+<div id="top-section" style="width:100%;height:50%">
+	<!--<div><img src="images/header.jpg"/></div>-->
+		<div id="top-section-a"><div id="header">Egert & Cohen Insturance</div>
+		<div>
+			Show Medical Centres <input type="radio" name="searchBy" value="nearest">nearest to me</input>
+			<input type="radio" name="searchBy" value="byArea">by area</input>
+		</div>
+		<div id="selector-div">
+			<div id="byArea" style="display:none">
+				Show medical centers near: <select id="areaSelector"></select>
+			</div>
+			<div id="nearest" style="display:none">
+				Searching for your current location
+			</div>
+		</div>
+		</div>
+	<!--<div style="overflow-y:auto;height:100px">  position:absolute;left:0;bottom:-400px;overflow-y: auto>-->
+		<div id="medicalCenters">
+		</div>
+	<!--</div>-->
+</div>
+<div id="map-section" style="width:100%;height:50%"><div id="map-canvas" style="width:100%;height:100%"></div>
+		<!--<div style="width:100%;height:100%" id="mapContainer">
+			<div style="width:99%;height:99%;margin: auto auto">
+				<div id="map-canvas"></div>
+			</div>
+		</div>-->
+</div>
+>>>>>>> gh-pages
 </body>
 </html>
