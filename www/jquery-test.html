@@ -1,0 +1,129 @@
+<!DOCTYPE html> 
+<html style="height:100%">
+<head> 
+	<title>Egert & Cohen</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" />
+	<link rel="stylesheet" href="css/medical.css" />
+	<script src="js/jquery-1.9.1.js"></script>
+	<script src="js/jquery.mobile-1.3.2.min.js"></script>
+	
+<script src="js/iscroll-lite.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
+
+	<script src="data/medicalCenters.json"></script>
+	<script src="js/medical-jquery.js"></script>
+	
+</head> 
+<body style="height:100%"> 
+
+<div data-role="page" id="chooseType">
+	<div data-role="header"  data-position="fixed">
+		<h1>Egert & Cohen</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-inset="true" data-filter="false" id="typesList">
+			<li><a href="#chooseCenter" center-type="Doctors">Doctors</a></li>
+			<li><a href="#chooseCenter" center-type="Pharmacies">Pharmacies</a></li>
+			<li><a href="#chooseCenter" center-type="Clinics">Clinics</a></li>
+			<li><a href="#chooseCenter" center-type="laboratories">Laboratories</a></li>
+			<script type="text/javascript">
+				var centerType=""
+				$("#typesList a").on("click", function(event) {
+					centerType = $(this).attr("center-type");
+					$("#centersList").html("")
+				});
+			</script>
+		</ul>
+	</div>
+</div>
+
+<div data-role="page" id="chooseCenter" data-add-back-btn="true">
+	<script type="text/javascript">
+        $("#chooseCenter").on("pageshow", function onPageShow(e,data) {
+			$("#centerTypeTitle").html(centerType)
+			displayMedicalCenters(9999,function(medicalCenter) {
+				return centerType === medicalCenter.centreType
+			});
+			
+        });
+    </script>
+	<div data-role="header"  data-position="fixed">
+		<h1><span id="centerTypeTitle"/></h1>
+	</div>
+	<div data-role="content">
+			<select name="flip-1" id="flip-1" data-role="slider">
+	<option value="off">By Area</option>
+	<option value="on">Near</option>
+</select> 
+		<ul data-role="listview" data-inset="true" data-filter="true" id="centersList">
+		</ul>
+	</div>
+</div>
+
+
+<div data-role="page" style="width:100%;height:300px" id="nearest">
+	<div data-role="header"  data-position="fixed">
+		<h1>Egert and Cohen</h1>
+	
+<div data-role="navbar">
+    <ul>
+        <li><a href="#" class="ui-btn-active">Nearest</a></li>
+        <li><a href="#byArea">By Area</a></li>
+		<!--<li><a href="#">Map</a></li>-->
+    </ul>
+</div>
+</div><!-- /header -->
+	<div data-role="content">
+		<p>Hello world</p>		
+		<ul data-role="listview" data-inset="true" data-filter="true" id="medicalCenters">
+	<li data-filtertext="tricky"><a href="#popupBasic" data-rel="popup">Acura</a></li>
+	<li data-icon="info"><a href="#popupBasic" data-rel="popup">Click me</a></li>
+	<li>BMW</li>
+	<li><a href="#">Cadillac</a></li>
+	<li><a href="#">Ferrari</a></li>
+	<li data-role="list-divider">Cars</li>
+	<li><a href="#">Acura</a></li>
+	<li><a href="#">Audi</a></li>
+	<li><a href="#">BMW</a></li>
+	<li><a href="#">Cadillac</a></li>
+	<li><a href="#">Ferrari</a></li>
+	<li><a href="#">Acura</a></li>
+	<li><a href="#">Audi</a></li>
+	<li data-role="list-divider"><a href="#">More Cars</a></li>
+	<li><a href="#">BMW</a></li>
+	<li><a href="#">Cadillac</a></li>
+	<li><a href="#">Ferrari</a></li>
+		<li><a href="#">Acura</a></li>
+	<li><a href="#">Audi</a></li>
+	<li><a href="#">BMW</a></li>
+	<li><a href="#">Cadillac</a></li>
+	<li><a href="#">Ferrari</a></li>
+		<li><a href="#">Acura</a></li>
+	<li><a href="#">Audi</a></li>
+	<li><a href="#">BMW</a></li>
+	<li><a href="#">Cadillac</a></li>
+	<li><a href="#">Ferrari</a></li>
+		<li><a href="#">Acura</a></li>
+	<li><a href="#">Audi</a></li>
+	<li><a href="#">BMW</a></li>
+	<li><a href="#">Cadillac</a></li>
+	<li><a href="#">Ferrari</a></li>
+	</ul>
+	</div><!-- /content -->
+
+<div data-role="popup" id="popupBasic">
+	<!--<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>-->
+	<p>This is a completely basic popup, no options set.<p>
+	<div><b>Opening hours</b>
+	</div>
+	
+</div>
+</div><!-- /page -->
+
+
+
+
+</body>
+</html>
