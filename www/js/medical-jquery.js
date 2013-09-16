@@ -17,8 +17,9 @@ function deg2rad(deg) {
 }
 
 function getCurrentLocation() {
-	/*handleCurrentPosition({coords: {longitude:35.217254, latitude: 31.780496}})
-	return*/
+	//handleCurrentPosition({coords: {longitude:35.217254, latitude: 31.780496}})
+	//handleNoGeo();
+	//return
 	if (navigator.geolocation)
     {
 		navigator.geolocation.getCurrentPosition(handleCurrentPosition,handleNoGeo);
@@ -60,40 +61,52 @@ function prepareData() {
 	});
 	*/
 }
-
-function updateMedicalCentersWithDistance() {
-	$.each(medicalCentersList, function(idx, obj){
+var medicalCentersDistances = []
+function updateMedicalCentersDistances() {
+	medicalCentersDistances = []
+	$.each(medicalCentresData, function(idx, obj){
 		var distance = getDistanceFromLatLonInKm(myPos.lat(), myPos.lng(), obj.location.lat, obj.location.lon);
-		obj.distance = distance;
+		medicalCentersDistances.push({id: obj.id, distance: distance})
 	});
+	/*
 	medicalCentersList.sort(function(a,b) {
 		return (a.distance < b.distance) ? -1 : 1
-	});
+	});*/
 }
-
+/*
 function populateAreaList() {
 	var areas = medicalCentersList.map(function(obj) { return obj.area })
 	x = areas
 	var distinctAreas = areas.filter(function(itm,i,areas){
 		return i==areas.indexOf(itm);
 	});
-	//$.unique(areas).sort()
 	$.each(distinctAreas,function(idx, area) {
 		$('#areaSelector').append('<option value="'+area+'">'+area+'</option>')
 	})
-}
+}*/
+
 var medicalCentersScroll;
+var map;
 $(document).ready(function() {
+
+	$('#map_canvas').gmap({'center': new google.maps.LatLng(31.780496,35.217254), 'zoom': 18, 'disableDefaultUI':true, 'callback': function() {
+						map = this;
+						var self = this;
+						self.addMarker({'position': this.get('map').getCenter() }).click(function() {
+							self.openInfoWindow({ 'content': 'You are here!' }, this);
+						});
+					}}); 
 	//window.setTimeout(function() {medicalCentersScroll = new iScroll('medicalCenters-wrapper');},100);
-    var mapOptions = {
+    /*var mapOptions = {
     zoom: 18,
     center: new google.maps.LatLng(31.780496,35.217254),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
-  //map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	*/
 	prepareData();
-	populateAreaList();
-	
+//	populateAreaList();
+	/*
 	$('input[name=searchBy]:radio').change(function () {
 
 		$("#medicalCenters").html("")
@@ -116,41 +129,103 @@ $(document).ready(function() {
 				});
 			}
 		}
-	})
+	})*/
 	$("#areaSelector").change(function () {
 		var area = $("#areaSelector option:selected").val();
-		displayMedicalCenters(100,function(medicalCenter) {
-			return medicalCenter.area === area;
+		console.log("Area chosen:"+area);
+		displayMedicalCenters(9999,function(medicalCenter) {
+			var filterByType = centerType === medicalCenter.centreType
+			if (area === "All" || area === "Nearby") return filterByType;
+			else return filterByType && medicalCenter.area === area;
 		});		
 	});
-	//getCurrentLocation();
+	getCurrentLocation();
 })
 
 function parsePhoneNumber(phoneNum) {
 	return phoneNum.replace(/-/g,'')
 }
-
 function displayMedicalCenters(maxToDisplay, filterFunction) {
 	var str = ""
+	//sort them by distance, or else by name
+	medicalCentresData.sort(function(a,b) {
+		if (medicalCentersDistances.length > 0) return (getDistance(a.id) < getDistance(b.id)) ? -1 : 1
+		else return (a.name < b.name) ? -1 : 1
+	})
 	$.each(medicalCentresData, function(idx, obj){ 
 		if (idx <= maxToDisplay) {
 			if(filterFunction(obj)) {
-				str += displayMedicalCenter(obj) 
+				str += displayMedicalCenterInList(obj) 
 			}
 		}
 	});
 	$("#centersList").html(str)
 	$("#centersList").listview("refresh")
+	$("#centersList").children("li").on("click", function() {
+		console.log($(this))
+		centerId = $(this).attr("center-id");
+	});
 }
-function displayMedicalCenter(obj) {
+
+function displayMedicalCenterById(id) {
+	console.log(id)
+	var medicalCenters = $.grep(medicalCentresData, function(obj,idx){ 
+		return (obj.id === id)
+	});
+	if (medicalCenters.length != 1) {
+		alert("Medical Center "+id+" not found");
+		return;
+	}
+	var medicalCenter = medicalCenters[0];
+	displayMedicalCenterDetails(medicalCenter)
+	//$("#centerName").html(id)
+			
+}
+function displayMedicalCenterDetails(obj) {
+	$("#centerType").html(obj.centreType)
+	$("#centerNameTitle").html(obj.name)
+	$("#centerName").html(obj.name)
+	var address = obj.address;
+	var distance = getDistance(obj.id)
+	if (distance !== null) {
+		distance = " ("+distance.toFixed(2)+"km away)";
+	}
+	$("#centerAddress").html(address)
+	$("#centerDistance").html(distance)
+	var phoneNumbers = ""
+	$.each(obj.phoneNumbers, function(idx,phoneNumber) {
+		phoneNumbers +="<a href='tel:"+parsePhoneNumber(phoneNumber.number)+"'>"+phoneNumber.number+"</a>"
+	});
+	$("#centerPhoneNumbers").html(phoneNumbers)
+	var openingHours = "<table class='table-stripe rounded-corners'><tbody>"
+	$.each(obj.openingHours, function(idx,line) {
+		var d_h = line.split(": ")
+		openingHours +="<tr><td>"+d_h[0]+"</td>"
+		if (d_h.length > 1) openingHours +="<td>"+d_h[1]+"</td>"
+		openingHours +="</tr>"
+	});
+	openingHours += "</tbody></table>";
+	$("#centerOpeningHours").html(openingHours)
+	showMedicalCenterOnMap(obj);
+}
+
+function getDistance(centerId) {
+	var medicalCenters = $.grep(medicalCentersDistances, function(obj,idx){ 
+		return (obj.id === centerId)
+	});
+	if (medicalCenters.length == 1) return medicalCenters[0].distance
+	return null;
+}
+
+function displayMedicalCenterInList(obj) {
 
 	//var lat = obj.marker.getPosition().lat()
 	//var lng = obj.marker.getPosition().lng()
 	//var str = '<span style="font-weight:bold">'+obj.name + '</span> - '+ obj.centreType
 	//if (typeof obj.distance !== 'undefined') str +=" ("+obj.distance.toFixed(2)+"km away)"
 	//var str ="<a href='javascript:showMedicalCenterOnMap("+obj.id+")'>"+obj.name+"</a>"
-	var str = "<li  data-icon='info' data-filtertext='"+obj.name+"'>"
-	str +="<a href='#'>"
+	var str = "<li  data-filtertext='"+obj.name+"' center-id='"+obj.id+"'>" //data-icon='info'
+	str +="<a href='#centerDetails'>"
 	str += "<h3>"+obj.name +"</h3>"
 	str += "<p><strong>"+obj.address+"</strong></p>"
 	/*str += "<p class='ui-li-aside'>"
@@ -159,24 +234,32 @@ function displayMedicalCenter(obj) {
 	});
 	str += "</p>"*/
 	
-	
+	/*
 	$.each(obj.openingHours, function(idx,line) {
 		str +="<p>"+line+"</p>"
 	});
-	$.each(obj.phoneNumbers, function(idx,phoneNumber) {
-	str +="<p>Phone: "+phoneNumber.number+"</p>"
+	*/
+	//$.each(obj.phoneNumbers, function(idx,phoneNumber) {
+	//str +="<p>Phone: "+phoneNumber.number+"</p>"
 	//str +="<p>Phone: <a href='tel:"+parsePhoneNumber(phoneNumber.number)+"'>"+phoneNumber.number+"</a></p>"
-	});
+	//});
+	var distance = getDistance(obj.id)
+	if (distance !== null) {
+		str+="<p class='ui-li-aside'>"+distance.toFixed(2)+"km away</p>"
+	}
 	str +="</a>"
 	str +="</li>"
 	return str;
 }
 
-function showMedicalCenterOnMap(id) {
-	var medicalCenter = getMedicalCenterById(id);
-	map.panTo(medicalCenter.latLng);
-	window.setTimeout(function(){google.maps.event.trigger(medicalCenter.marker, 'click');},1000);
-	//Todo instead of waiting 2 secs, should really listen on the 'idle' event
+function showMedicalCenterOnMap(medicalCenter) {
+	var latLng = new google.maps.LatLng(medicalCenter.location.lat, medicalCenter.location.lon);
+	map.clear('markers')
+	map.addMarker({'position': latLng }).click(function() {
+							map.openInfoWindow({ 'content': medicalCenter.name }, this);
+						});
+	map.get('map').setCenter(latLng);
+	$('#map_canvas').gmap('refresh');
 }
 
 function jumpToMyLocation() {
@@ -191,6 +274,7 @@ function getMedicalCenterById(id) {
 
 function handleCurrentPosition(position) {
 	myPos = new google.maps.LatLng(position.coords.latitude ,position.coords.longitude);
+	/*
 	var markerTitle = "You are here"
 	myPosMarker = new google.maps.Marker({
 					position: myPos,
@@ -201,13 +285,9 @@ function handleCurrentPosition(position) {
 	var infowindow = new google.maps.InfoWindow({
 		content: '<div>'+markerTitle+'</div>'
 	});
-	map.setCenter(myPos);
-	updateMedicalCentersWithDistance();
-	// If user didn't choose a radio button yet, default to 'nearest'
-	if ($('input[name=searchBy]:radio:checked').length === 0) {
-		$("input[name=searchBy]:radio[value=nearest]").click()
-	}
+	map.setCenter(myPos);*/
 	
+	updateMedicalCentersDistances();
 }
 
 function handleNoGeo(error) {
