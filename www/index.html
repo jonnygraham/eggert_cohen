@@ -106,7 +106,7 @@
 <div data-role="page" id="centerDetails">
 		<script type="text/javascript">
         $("#centerDetails").on("pageshow", function onPageShow(e,data) {
-			displayMedicalCenterById(localStorage.get("centerId"));
+			displayMedicalCenterById(localStorage.getItem("centerId"));
         });
 		</script>
 		<div data-role="header" data-position="fixed">

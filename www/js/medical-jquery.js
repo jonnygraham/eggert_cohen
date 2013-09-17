@@ -133,7 +133,7 @@ $(document).ready(function() {
 	$("#areaSelector").change(function () {
 		var area = $("#areaSelector option:selected").val();
 		console.log("Area chosen:"+area);
-		var centerType = localStorage.get("centerType");
+		var centerType = localStorage.getItem("centerType");
 		displayMedicalCenters(9999,function(medicalCenter) {
 			var filterByType = centerType === medicalCenter.centreType
 			if (area === "All" || area === "Nearby") return filterByType;
