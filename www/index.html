@@ -2,16 +2,11 @@
 <html style="height:100%">
 <head> 
 	<title>Egert & Cohen</title> 
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no"> 
 	<link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" />
 	<link rel="stylesheet" href="css/medical.css" />
 	<script src="js/jquery-1.9.1.js"></script>
 	<script src="js/jquery.mobile-1.3.2.min.js"></script>
-	<script src="js/query.ui.map.js"></script>
-	<script src="http://debug.phonegap.com/target/target-script-min.js#egert_cohen_debug"></script>
-	
-<script src="js/iscroll-lite.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
 
 	<script src="data/medicalCenters.json"></script>
@@ -34,12 +29,11 @@
 			<thead><tr><th>Telephone number</th><th>When to call</th></tr>
 			</thead>
 			<tbody>
-				<tr><td>Egert & Cohen: (02) 622 7999  Ext. 106, 107
-				Office hours 10.00-17.00 (Ask for Tzippy or Rivki)</td><td>Any problems with Medical Service providers</td></tr>
+				<tr><td><p>Egert & Cohen: (02) 622 7999  Ext. 106, 107</p>
+				<p>Office hours 10.00-17.00 (Ask for Tzippy or Rivki)</p></td><td>Any problems with Medical Service providers</td></tr>
 				<tr><td>Harel's 24-hour call center:1-800-414-422 / 03-754-7020</td><td>Any hospital admission/ Ambulance service/Finding doctors and other medical services</td></tr>
-				<tr><td>Shimon Cohen:  050 5482 192
-
-Yonah Egert:      050 5363 897 </td><td>Trouble shooting
+				<tr><td><p>Shimon Cohen:  050 5482 192</p>
+					<p>Yonah Egert: 050 5363 897</p></td><td>Trouble shooting
 
 (<strong>any problem</strong> that is not  being solved quickly)</td></tr>
 				<tr><td>Bikur Rofeh: 1-800-414-422 / 03-754-7020</td><td>Emergency house calls</td></tr>
@@ -48,14 +42,14 @@ Yonah Egert:      050 5363 897 </td><td>Trouble shooting
 		Remember you are only covered through <strong>contracted</strong> doctors or specialists
 		
 		<p>
-		Tips: 1. Don't pay for services to hospitals or contracted doctors.
-BUT... : 2. If you are far from a contracted pharmacy:
-	a - pay the bill
-	b - keep the prescription
-	c - send originals to Egert and Cohen
+		Tips: 1. Don't pay for services to hospitals or contracted doctors.</p>
+<p>BUT... : 2. If you are far from a contracted pharmacy:</p>
+	<p>a - pay the bill</p>
+	<p>b - keep the prescription</p>
+	<p>c - send originals to Egert and Cohen</p>
     
-                                        P.O Box 37051 
-                                        Jerusalem 91370
+     <p>                                   P.O Box 37051 </p>
+	 <p>                                  Jerusalem 91370</p>
 </p>
 		<a data-role="button" href="#chooseType">Find Medical center</a>
 	</div>
@@ -111,23 +105,6 @@ BUT... : 2. If you are far from a contracted pharmacy:
 				var centerId="??"
 			</script>
 	</div>
-	<!--
-	<div data-role="popup" id="centerDetailsPopup" data-dismissible="false" data-position-to="window" data-overlay-theme="a" data-theme="c" class="ui-corner-all">
-		<h1><span id="centerTitle"/></h1>
-		<div id="centerDetails">
-		</div>
-	<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-	<p>This is a completely basic popup, no options set.<p>
-	<div><b>Opening hours</b>
-	</div>
-
-</div>
-		<script type="text/javascript">
-        $("#centerDetailsPopup").on("popupbeforeposition", function popupbeforeposition(e,data) {
-			$("#centerTitle").html(centerId)
-			$("#centerDetails").html("Hello <strong>test!</strong>")
-        });
-    </script>-->
 </div>
 <div data-role="page" id="centerDetails">
 		<script type="text/javascript">
@@ -153,7 +130,11 @@ BUT... : 2. If you are far from a contracted pharmacy:
 </div>
 
 
-
+	<script src="js/query.ui.map.js"></script>
+	<!--<script src="http://debug.phonegap.com/target/target-script-min.js#egert_cohen_debug"></script>-->
+	
+<!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script> 
 
 </body>
 </html>
