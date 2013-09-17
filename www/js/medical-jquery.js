@@ -133,6 +133,7 @@ $(document).ready(function() {
 	$("#areaSelector").change(function () {
 		var area = $("#areaSelector option:selected").val();
 		console.log("Area chosen:"+area);
+		var centerType = localStorage.get("centerType");
 		displayMedicalCenters(9999,function(medicalCenter) {
 			var filterByType = centerType === medicalCenter.centreType
 			if (area === "All" || area === "Nearby") return filterByType;
@@ -163,7 +164,7 @@ function displayMedicalCenters(maxToDisplay, filterFunction) {
 	$("#centersList").listview("refresh")
 	$("#centersList").children("li").on("click", function() {
 		console.log($(this))
-		centerId = $(this).attr("center-id");
+		localStorage.setItem("centerId",$(this).attr("center-id"));
 	});
 }
 

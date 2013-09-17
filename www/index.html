@@ -67,9 +67,8 @@
 			<li><a href="#chooseCenter" center-type="Clinics">Clinics</a></li>
 			<li><a href="#chooseCenter" center-type="laboratories">Laboratories</a></li>
 			<script type="text/javascript">
-				var centerType=""
 				$("#typesList a").on("click", function(event) {
-					centerType = $(this).attr("center-type");
+					localStorage.setItem("centerType",$(this).attr("center-type"));
 					$("#centersList").html("")
 				});
 			</script>
@@ -80,6 +79,7 @@
 <div data-role="page" id="chooseCenter">
 	<script type="text/javascript">
         $("#chooseCenter").on("pageshow", function onPageShow(e,data) {
+			var centerType = localStorage.getItem("centerType")
 			$("#centerTypeTitle").html(centerType)
 			$('#areaSelector').trigger('change');
         });
@@ -101,15 +101,12 @@
 
 		<ul data-role="listview" data-inset="true" data-filter="false" id="centersList">
 		</ul>
-		<script type="text/javascript">
-				var centerId="??"
-			</script>
 	</div>
 </div>
 <div data-role="page" id="centerDetails">
 		<script type="text/javascript">
         $("#centerDetails").on("pageshow", function onPageShow(e,data) {
-			displayMedicalCenterById(centerId);
+			displayMedicalCenterById(localStorage.get("centerId"));
         });
 		</script>
 		<div data-role="header" data-position="fixed">
