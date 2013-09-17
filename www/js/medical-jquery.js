@@ -89,6 +89,18 @@ var medicalCentersScroll;
 var map;
 $(document).ready(function() {
 
+	$("#centerDetails").on("pageshow", function onPageShow(e,data) {
+		displayMedicalCenterById(localStorage.getItem("centerId"));
+	});
+	$("#chooseCenter").on("pageshow", function onPageShow(e,data) {
+		var centerType = localStorage.getItem("centerType")
+		$("#centerTypeTitle").html(centerType)
+		$('#areaSelector').trigger('change');
+	});
+	$("#typesList a").on("click", function(event) {
+		localStorage.setItem("centerType",$(this).attr("center-type"));
+		$("#centersList").html("")
+	});
 	$('#map_canvas').gmap({'center': new google.maps.LatLng(31.780496,35.217254), 'zoom': 18, 'disableDefaultUI':true, 'callback': function() {
 						map = this;
 						var self = this;

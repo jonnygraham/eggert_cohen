@@ -5,12 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no"> 
 	<link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" />
 	<link rel="stylesheet" href="css/medical.css" />
-	<script src="js/jquery-1.9.1.js"></script>
-	<script src="js/jquery.mobile-1.3.2.min.js"></script>
 
-
-	<script src="data/medicalCenters.json"></script>
-	<script src="js/medical-jquery.js"></script>
 	
 </head> 
 <body style="height:100%"> 
@@ -66,24 +61,11 @@
 			<li><a href="#chooseCenter" center-type="Pharmacies">Pharmacies</a></li>
 			<li><a href="#chooseCenter" center-type="Clinics">Clinics</a></li>
 			<li><a href="#chooseCenter" center-type="laboratories">Laboratories</a></li>
-			<script type="text/javascript">
-				$("#typesList a").on("click", function(event) {
-					localStorage.setItem("centerType",$(this).attr("center-type"));
-					$("#centersList").html("")
-				});
-			</script>
 		</ul>
 	</div>
 </div>
 
 <div data-role="page" id="chooseCenter">
-	<script type="text/javascript">
-        $("#chooseCenter").on("pageshow", function onPageShow(e,data) {
-			var centerType = localStorage.getItem("centerType")
-			$("#centerTypeTitle").html(centerType)
-			$('#areaSelector').trigger('change');
-        });
-    </script>
 	<div data-role="header"  data-position="fixed">
 	<a data-role="button" data-rel="back" data-icon="arrow-l">Back</a>
 	<a href="#info" data-icon="info" class="ui-btn-right">Info</a>
@@ -104,11 +86,6 @@
 	</div>
 </div>
 <div data-role="page" id="centerDetails">
-		<script type="text/javascript">
-        $("#centerDetails").on("pageshow", function onPageShow(e,data) {
-			displayMedicalCenterById(localStorage.getItem("centerId"));
-        });
-		</script>
 		<div data-role="header" data-position="fixed">
 			<a data-role="button" data-rel="back" data-icon="back">Back</a>
 			<a href="#info" data-icon="info" class="ui-btn-right">Info</a>
@@ -125,7 +102,10 @@
 			<div id="map_canvas" style="height:200px;margin-top:3px"></div>
 		</div>
 </div>
-
+	<script src="js/jquery-1.9.1.js"></script>
+	<script src="js/jquery.mobile-1.3.2.min.js"></script>
+	<script src="data/medicalCenters.json"></script>
+	<script src="js/medical-jquery.js"></script>
 
 	<script src="js/query.ui.map.js"></script>
 	<!--<script src="http://debug.phonegap.com/target/target-script-min.js#egert_cohen_debug"></script>-->
