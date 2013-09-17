@@ -207,7 +207,9 @@ function displayMedicalCenterDetails(obj) {
 	if (distance !== null) {
 		distance = " ("+distance.toFixed(2)+"km away)";
 	}
-	address += " <a href='waze://?ll="+obj.location.lat+","+obj.location.lon+"' target='_blank'>Waze</a>";
+	if (obj.location.lat !== 0) {
+		address += " (<a href='waze://?ll="+obj.location.lat+","+obj.location.lon+"' target='_blank'>Open in Waze</a>)";
+		}
 	$("#centerAddress").html(address)
 	$("#centerDistance").html(distance)
 	var phoneNumbers = ""
