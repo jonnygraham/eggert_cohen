@@ -143,6 +143,7 @@ $(document).ready(function() {
 		}
 	})*/
 	$("#areaSelector").change(function () {
+		$("#noListMessage").hide();
 		var area = $("#areaSelector option:selected").val();
 		console.log("Area chosen:"+area);
 		var centerType = localStorage.getItem("centerType");
@@ -165,13 +166,16 @@ function displayMedicalCenters(maxToDisplay, filterFunction) {
 		if (medicalCentersDistances.length > 0) return (getDistance(a.id) < getDistance(b.id)) ? -1 : 1
 		else return (a.name < b.name) ? -1 : 1
 	})
+	var numCenters = 0
 	$.each(medicalCentresData, function(idx, obj){ 
 		if (idx <= maxToDisplay) {
 			if(filterFunction(obj)) {
-				str += displayMedicalCenterInList(obj) 
+				str += displayMedicalCenterInList(obj);
+				numCenters +=1;
 			}
 		}
 	});
+	if (numCenters == 0 ) $("#noListMessage").show();
 	$("#centersList").html(str)
 	$("#centersList").listview("refresh")
 	$("#centersList").children("li").on("click", function() {
@@ -207,14 +211,20 @@ function displayMedicalCenterDetails(obj) {
 	$("#centerDistance").html(distance)
 	var phoneNumbers = ""
 	$.each(obj.phoneNumbers, function(idx,phoneNumber) {
-		phoneNumbers +="<a href='tel:"+parsePhoneNumber(phoneNumber.number)+"'>"+phoneNumber.number+"</a>"
+		phoneNumbers +="<p><a href='tel:"+parsePhoneNumber(phoneNumber.number)+"'>"+phoneNumber.number+"</a></p>"
 	});
 	$("#centerPhoneNumbers").html(phoneNumbers)
 	var openingHours = "<table class='table-stripe rounded-corners'><tbody>"
 	$.each(obj.openingHours, function(idx,line) {
+		openingHours +="<tr>";
 		var d_h = line.split(": ")
-		openingHours +="<tr><td>"+d_h[0]+"</td>"
-		if (d_h.length > 1) openingHours +="<td>"+d_h[1]+"</td>"
+		if (d_h[0] === "") {
+			openingHours += "<td>Not known</td>";
+		}
+		else {
+			openingHours +="<td>"+d_h[0]+"</td>"
+			if (d_h.length > 1) openingHours +="<td>"+d_h[1]+"</td>"
+		}
 		openingHours +="</tr>"
 	});
 	openingHours += "</tbody></table>";
