@@ -241,7 +241,7 @@ function launchWaze() {
 		action: window.plugins.webintent.ACTION_VIEW,
 		url: 'waze://?ll='+lat+','+lon}, 
 		function() {}, 
-		function() {alert('Failed to open Waze')};
+		function() {alert('Failed to open Waze')}
 	);
 }
 
