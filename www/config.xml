@@ -61,7 +61,7 @@
 
     <!-- Define app splash screen for each platform. -->
     <gap:splash src="images/logo.png"/>
-
+	<gap:plugin name="com.borismus.webintent" />
     <!--
         Define access to external domains.
 

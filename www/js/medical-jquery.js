@@ -208,7 +208,8 @@ function displayMedicalCenterDetails(obj) {
 		distance = " ("+distance.toFixed(2)+"km away)";
 	}
 	if (obj.location.lat !== 0) {
-		address += " (<a href='waze://?ll="+obj.location.lat+","+obj.location.lon+"' target='_blank'>Open in Waze</a>)";
+		//address += " (<a href='waze://?ll="+obj.location.lat+","+obj.location.lon+"' target='_blank'>Open in Waze</a>)";
+		address += " (<a href='javascript:launchWaze("+obj.location.lat+","+obj.location.lon+")' target='_blank'>Open in Waze</a>)";
 		}
 	$("#centerAddress").html(address)
 	$("#centerDistance").html(distance)
@@ -233,6 +234,15 @@ function displayMedicalCenterDetails(obj) {
 	openingHours += "</tbody></table>";
 	$("#centerOpeningHours").html(openingHours)
 	showMedicalCenterOnMap(obj);
+}
+
+function launchWaze() {
+	window.plugins.webintent.startActivity({
+		action: window.plugins.webintent.ACTION_VIEW,
+		url: 'waze://?ll='+lat+','+lon}, 
+		function() {}, 
+		function() {alert('Failed to open Waze')};
+	);
 }
 
 function getDistance(centerId) {
