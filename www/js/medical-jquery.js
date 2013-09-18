@@ -207,10 +207,10 @@ function displayMedicalCenterDetails(obj) {
 	if (distance !== null) {
 		distance = " ("+distance.toFixed(2)+"km away)";
 	}
-	if (obj.location.lat !== 0) {
+	/*if (obj.location.lat !== 0) {
 		//address += " (<a href='waze://?ll="+obj.location.lat+","+obj.location.lon+"' target='_blank'>Open in Waze</a>)";
 		address += " (<a href='javascript:launchWaze("+obj.location.lat+","+obj.location.lon+")' target='_blank'>Open in Waze</a>)";
-		}
+		}*/
 	$("#centerAddress").html(address)
 	$("#centerDistance").html(distance)
 	var phoneNumbers = ""
@@ -235,16 +235,18 @@ function displayMedicalCenterDetails(obj) {
 	$("#centerOpeningHours").html(openingHours)
 	showMedicalCenterOnMap(obj);
 }
-
+/*
 function launchWaze() {
-	window.plugins.webintent.startActivity({
-		action: window.plugins.webintent.ACTION_VIEW,
-		url: 'waze://?ll='+lat+','+lon}, 
-		function() {}, 
-		function() {alert('Failed to open Waze')}
-	);
+	if(window.plugins != undefined) {
+		window.plugins.webintent.startActivity({
+			action: window.plugins.webintent.ACTION_VIEW,
+			url: 'waze://?ll='+lat+','+lon}, 
+			function() {}, 
+			function() {alert('Failed to open Waze')}
+		);
+	}
 }
-
+*/
 function getDistance(centerId) {
 	var medicalCenters = $.grep(medicalCentersDistances, function(obj,idx){ 
 		return (obj.id === centerId)
