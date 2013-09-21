@@ -6,7 +6,7 @@ Clinics,,,
 ,,,
 Bikur Rofeh,"Beit Hadfus 22, Jerusalem",Sun: 17:00 - 01:00,077-554-0943
 ,,Mon- Thur: 18:30 - 01:00,
-,,"Fri, holiday eve: 09:00 - 14:00",
+,,"Fri, hoiday eve: 09:00 - 14:00",
 ,,"Sat, holidays: 17:30 - 01:00",
 ,,,
 Bikur Rofeh,"Klermon Gano 1, Jerusalem",Sun - Thur: 19:00 - 23:00,02-589-3845
@@ -14,7 +14,7 @@ Bikur Rofeh,"Klermon Gano 1, Jerusalem",Sun - Thur: 19:00 - 23:00,02-589-3845
 ,,,
 Terem,"Yirmiyahu 80, Jerusalem",24 hour service,02-509-3333
 ,,,
-Terem,"Daniel Yanovsky 6, Jerusalem",Sun - Sat : 09:00 - 24:00,"1-599-520-520, #2"
+Terem," Daniel Yanovsky 6, Jerusalem",Sun - Sat : 09:00 - 24:00,"1-599-520-520, #2"
 ,,,
 Terem,"Ha'neviim 74, Jerusalem",24 hour service,1-599-520-520 #6
 ,,,
@@ -26,6 +26,7 @@ Terem,"Sderot Yigal Alon 1, Beit Shemesh",Sun - Thur: 14:00 - 06:00,"1-599-520-5
 ,,,
 ,,,
 Efrat Medical Center,,,02-993-3020
+,,,
 Doctors,,,
 ,,,
 Dr. Paul Sleiter,47/20 Arzei Habira,Call for appointment,02-625-1183
@@ -34,20 +35,22 @@ Dr. Tessa Manoim,"Yad Harutzim 18 Talpiot, Jerusalem",Call for appointment,02-67
 ,,,
 Dr. Jeffrey Greenfield,"Gedera 4, Romema, Jerusalem",Call for appointment,02-537-1897
 ,,,
-"Dr. Avraham Auerbach, eye doctor","Diskin 9, Jerusalem",Call for appointment,02-563-8728
+Dr. Barry Dinner,"Corner of Ayalon and Kishon, Ramat Beit Shemesh",Call for appointment,02-995-3330
+,,,
+Specialists,,,
+,,,
+"Dr. Avraham Auerbach, Eye specialist","Diskin 9, Jerusalem",Call for appointment,02-563-8728
 ,,,
 "Dr. Jackie Glassman, Dentist","Elcharizi 18, Rechavya, Jerusalem",Call for appointment,02-566-9061
-,,,
-Dr. Barry Dinner,"Corner of Ayalon and Kishon, Ramat Beit Shemesh",Call for appointment,02-995-3330
 ,,,
 Pharmacies,,,
 ,,,
 Pharma - C,"Diskin 9, Jerusalem",,02-561-2361
 ,,,
-,"Malchei yisrael 14, Jerusalem",,02-537-1050
+,"Malchei Yisrael 14, Jerusalem",,02-537-1050
 ,,,
 Ramat Beit Shemesh,"Nachal Dolev 82, Beit Shemesh",,02-999-9777
-laboratories,,,
+Laboratories,,,
 ,,,
 Ofek Labs,"Diskin 9, Jerusalem",,02-561-8732 
 ,,,
@@ -57,12 +60,12 @@ Tel-Aviv area,,,
 ,,,
 Clinics,,,
 ,,,
-Bikur Rofeh,"Sokolov 1, Hertzelia","Sun, Tue, Thur: 19:00 - 23:00",09-954-1647
+Bikur Rofeh,"Sokolov 1, Hertzliya","Sun, Tue, Thur: 19:00 - 23:00",09-954-1647
 ,,"Mon, Wed: 19:00 - 24:00",
 ,,"Fri, holiday eve: 17:00 - 24:00",
 ,,"Sat, holidays: 09:00 - 24:00",
 ,,,
-Bikur Rofeh,"Tcharnihovski 16, Kfar saba",Sun - Thur: 19:00 - 23:00,09-7455554
+Bikur Rofeh,"Tchernichovski 16, Kfar Saba",Sun - Thur: 19:00 - 23:00,09-7455554
 ,,"Fri, holiday eve: 16:00 - 24:00",
 ,,"Sat, holidays: 10:00 - 14:00",
 ,,                        18:00 - 24:00,
@@ -77,7 +80,7 @@ Bikur Rofeh,Lazarov 33 Rishon le'tzion ,Sun: 17:00 - 01:00,03-952-4607
 ,,"Fri, holiday eve: 09:00 - 14:00",
 ,,"Sat, holidays: 17:30 - 01:00",
 ,,,
-Bikur Rofeh,ha'arbaa 20 Tel Aviv,Sun- Thur: 19:00- 24:00,03-624-2371
+Bikur Rofeh,Ha'arbaa 20 Tel Aviv,Sun- Thur: 19:00- 24:00,03-624-2371
 ,,"Fri, hoiday eve: 16:00 - 24:00",
 ,,"Sat, holidays: 9:00 - 24:00",
 ,,,
@@ -91,7 +94,7 @@ Bikur Rofeh,"Hayetzira 6, Netanya",Sun: 17:00 - 01:00,09-8857022
 ,,                        17:30 - 01:00,
 ,,,
 ,,,
-Bikur rofe,"Yigael Yadin 41, Modiin",Sun: 17:00 - 24:00,08-9750700
+Bikur Rofeh,"Yigael Yadin 41, Modiin",Sun: 17:00 - 24:00,08-9750700
 ,,Mon- Thur: 18:30 - 23:00,
 ,,"Fri, hoiday eve: 09:00 - 14:00",
 ,,"Sat, holidays: 17:30 - 24:00",
@@ -100,9 +103,9 @@ Terem,"Jabotinsky 160,Bnei Brak",24 hour sevice,1-599-520-520
 ,,,
 Doctors,,,
 ,,,
-Dr. Tuvia Brondwin,"King David 6, Tel Aviv",,03-696-6837
+Dr. Tuvia Brondwin,"King David 6, Tel Aviv",Call for appointment,03-696-6837
 ,,,
-Dr. binyamin Lilov,"CMC Medical Center,Pinchas Lavon 18, Netanya",,09-865-7777
+Dr. Binyamin Lilov,"CMC Medical Center,Pinchas Lavon 18, Netanya",Call for appointment,09-865-7777
 ,,,
 Pharmacies,,,
 ,,,
@@ -118,12 +121,12 @@ Bikur Rofeh,"Tzahal 1, Hadera",Sun - Thur: 19:30 - 23:00,04- 6225030
 ,,"Sat, holidays: 09:00 - 13:00",
 ,,                        17:00 - 13:00,
 ,,,
-Bikur Rofeh,"Derech Ako Haifa 194, kiryat byalik","Sun,Mon, Tue, Thur: 19:30 - 24:00",04-8747022
+Bikur Rofeh,"Derech Ako Haifa 194, Kiryat Bialik","Sun,Mon, Tue, Thur: 19:30 - 24:00",04-8747022
 ,,Wed: 15:00 - 24:00,
 ,,"Fri, hoiday eve: 15:00 - 24:00",
 ,,"Sat, holidays: 09:00 - 24:00",
 ,,,
-Bikur Rofeh,"Haoranim 44, Yokneam Ilit","Sun,Mon, Tue, Thur: 19:00 - 23:00",04-9591358
+Bikur Rofeh,"Haoranim 44, Yokneam Illit","Sun,Mon, Tue, Thur: 19:00 - 23:00",04-9591358
 ,,Wed: 17:00 - 23:00,
 ,,"Fri, hoiday eve: 18:00 - 23:00",
 ,,"Sat, holidays: 10:00 - 14:00",
@@ -143,7 +146,7 @@ Bikur Rofeh,"Yehoshua Henkin 15, Afula",Sun: 18:00 - 24:00,04-6403348
 Bikur Rofeh,"Yerushalayim Habira 27, Beit Shean",Sun - Sat : 19:00 - 23:00,*6101
 ,,,
 ,,,
-Bikur Rofeh,"Hertzel 44, Nahariya",Sun - Thur: 17:30 - 01:00,04-6641014
+Bikur Rofeh,"Hertzl 44, Nahariya",Sun - Thur: 17:30 - 01:00,04-6641014
 ,,"Fri, hoiday eve:12:00 - 24:00",
 ,,"Sat, holidays: 10:00 - 01:00",
 ,,,
@@ -164,17 +167,17 @@ Marlam ,"Hakishon 1, Tiberias",Sun - Thur : 19:00 - 24:00,04-671-7611
 ,,,
 Doctors,,,
 ,,,
-Dr. Yerichover,"Moshav Hispin, Golan",,04-664-6600
+Dr. Yerichover,"Moshav Hispin, Golan",Call for appointment,04-664-6600
 ,,,050-626-4475
 ,,,04-676-3701 (Home)
 ,,,
-"Dr. Amos Riter, Dr.Sharon Schwertz","Yotam 6, Haifa",,04-834-0280
+"Dr. Amos Riter, Dr.Sharon Schwertz","Yotam 6, Haifa",Call for appointment,04-834-0280
 ,,,
-Dr. Shimon Darmon,"Yuspetal 158, Tsfat",,Clinic- 04-847-3222
+Dr. Shimon Darmon,"Yuspetal 158, Tsfat",Call for appointment,Clinic- 04-847-3222
 ,,,Home- 04-699-9908
 ,,,Cell-050-884-4771
 ,,,
-Dr. Yitzchak Stern ,"Hachsharat Hayeshuv 89, Tsfat",,04-697-1896
+Dr. Yitzchak Stern ,"Hachsharat Hayeshuv 89, Tsfat",Call for appointment,04-697-1896
 ,,,
 ,,,
 Pharmacies,,,
@@ -224,7 +227,7 @@ Bikur Rofeh,"Hertzel 30, Ashkelon","Sun, Tue, Thur: 20:00 - 24:00",08-6728989
 Doctors,,,
 ,,,
 ,,,
-Dr. Meir Weisnovitz,"Savyon 12, Eilat",,08-632-6138
+Dr. Meir Weisnovitz,"Savyon 12, Eilat",Call for appointment,08-632-6138
 ,,,
 Pharmacies,,,
 ,,,

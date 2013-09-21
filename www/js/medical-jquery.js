@@ -1,3 +1,18 @@
+var deviceReadyDeferred = $.Deferred();
+var jqmReadyDeferred = $.Deferred();
+
+document.addEventListener("deviceReady", deviceReady, false);
+
+function deviceReady() {
+  deviceReadyDeferred.resolve();
+}
+
+$(document).one("mobileinit", function () {
+  jqmReadyDeferred.resolve();
+});
+
+$.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
+
 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -87,8 +102,7 @@ function populateAreaList() {
 
 var medicalCentersScroll;
 var map;
-$(document).ready(function() {
-
+function doWhenBothFrameworksLoaded() {
 	$("#centerDetails").on("pageshow", function onPageShow(e,data) {
 		displayMedicalCenterById(localStorage.getItem("centerId"));
 	});
@@ -154,7 +168,7 @@ $(document).ready(function() {
 		});		
 	});
 	getCurrentLocation();
-})
+}
 
 function parsePhoneNumber(phoneNum) {
 	return phoneNum.replace(/-/g,'')
