@@ -24,10 +24,10 @@ function getCurrentLocation() {
 }
 
 var medicalCentersDistances = []
-function updateMedicalCentersDistances(myLat, myLon) {
+function updateMedicalCentersDistances(pos) {
 	medicalCentersDistances = []
 	$.each(medicalCentresData, function(idx, obj){
-		var distance = getDistanceFromLatLonInKm(myLat, myLon, obj.location.lat, obj.location.lon);
+		var distance = getDistanceFromLatLonInKm(pos.lat, pos.lon, obj.location.lat, obj.location.lon);
 		medicalCentersDistances.push({id: obj.id, distance: distance})
 	});
 
@@ -194,9 +194,13 @@ function showMedicalCenterOnMap(medicalCenter) {
 	$('#map_canvas').gmap('refresh');
 }
 
-
+var lastKnownPos = { lat:0.0, lon: 0.0 };
 function handleCurrentPosition(position) {
-	updateMedicalCentersDistances(position.coords.latitude ,position.coords.longitude);
+	var pos = { lat: position.coords.latitude, lon: position.coords.longitude }
+	if (pos.lat != lastKnownPos.lat || pos.lon != lastKnownPos.lon) {
+		lastKnownPos = pos
+		updateMedicalCentersDistances(pos);
+	}
 }
 
 function handleNoGeo(error) {
