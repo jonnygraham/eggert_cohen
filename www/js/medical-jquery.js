@@ -1,18 +1,3 @@
-var deviceReadyDeferred = $.Deferred();
-var jqmReadyDeferred = $.Deferred();
-
-document.addEventListener("deviceReady", deviceReady, false);
-
-function deviceReady() {
-  deviceReadyDeferred.resolve();
-}
-
-$(document).one("mobileinit", function () {
-  jqmReadyDeferred.resolve();
-});
-
-$.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenBothFrameworksLoaded);
-
 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -32,77 +17,24 @@ function deg2rad(deg) {
 }
 
 function getCurrentLocation() {
-	//handleCurrentPosition({coords: {longitude:35.217254, latitude: 31.780496}})
-	//handleNoGeo();
-	//return
 	if (navigator.geolocation)
     {
-		navigator.geolocation.getCurrentPosition(handleCurrentPosition,handleNoGeo);
+		navigator.geolocation.getCurrentPosition(handleCurrentPosition);
     }
-	else {
-		handleNoGeo();
-	}
 }
 
-function prepareData() {
-	function processMedicalCenter(idx,obj) {
-	return;
-		var id = idx;
-		var latLng = new google.maps.LatLng(obj.location.lat,obj.location.lon);
-		var marker = new google.maps.Marker({
-			position: latLng,
-			map: map,
-			title: obj.name
-		});
-		var infowindow = new google.maps.InfoWindow({
-			content: '<div>'+obj.name+'</div><br/><div>'+obj.address+'</div>'
-		});
-		google.maps.event.addListener(marker, 'click', function() {
-			if (typeof openInfoWindow !== 'undefined') openInfoWindow.close();
-			openInfoWindow = infowindow;
-			infowindow.open(map,marker);
-		});
-		medicalCentersList[idx] = obj
-		obj.id = id
-		obj.latLng = latLng
-		obj.marker = marker
-		obj.infowindow = infowindow
-	}
-	
-	medicalCentersList = []
-	$.each(medicalCentresData,processMedicalCenter)
-	/*$.getJSON("data/medicalCenters.json",function(medicalCenters) {
-		$.each(medicalCenters,processMedicalCenter)
-	});
-	*/
-}
 var medicalCentersDistances = []
-function updateMedicalCentersDistances() {
+function updateMedicalCentersDistances(myLat, myLon) {
 	medicalCentersDistances = []
 	$.each(medicalCentresData, function(idx, obj){
-		var distance = getDistanceFromLatLonInKm(myPos.lat(), myPos.lng(), obj.location.lat, obj.location.lon);
+		var distance = getDistanceFromLatLonInKm(myLat, myLon), obj.location.lat, obj.location.lon);
 		medicalCentersDistances.push({id: obj.id, distance: distance})
 	});
-	/*
-	medicalCentersList.sort(function(a,b) {
-		return (a.distance < b.distance) ? -1 : 1
-	});*/
-}
-/*
-function populateAreaList() {
-	var areas = medicalCentersList.map(function(obj) { return obj.area })
-	x = areas
-	var distinctAreas = areas.filter(function(itm,i,areas){
-		return i==areas.indexOf(itm);
-	});
-	$.each(distinctAreas,function(idx, area) {
-		$('#areaSelector').append('<option value="'+area+'">'+area+'</option>')
-	})
-}*/
 
-var medicalCentersScroll;
+}
+
 var map;
-function doWhenBothFrameworksLoaded() {
+$(document).ready(function() {
 	$("#centerDetails").on("pageshow", function onPageShow(e,data) {
 		displayMedicalCenterById(localStorage.getItem("centerId"));
 	});
@@ -115,47 +47,13 @@ function doWhenBothFrameworksLoaded() {
 		localStorage.setItem("centerType",$(this).attr("center-type"));
 		$("#centersList").html("")
 	});
-	$('#map_canvas').gmap({'center': new google.maps.LatLng(31.780496,35.217254), 'zoom': 18, 'disableDefaultUI':true, 'callback': function() {
+	$('#map_canvas').gmap({'center': new google.maps.LatLng(31.780496,35.217254), 'zoom': 16, 'disableDefaultUI':true, 'callback': function() {
 						map = this;
 						var self = this;
 						self.addMarker({'position': this.get('map').getCenter() }).click(function() {
 							self.openInfoWindow({ 'content': 'You are here!' }, this);
 						});
 					}}); 
-	//window.setTimeout(function() {medicalCentersScroll = new iScroll('medicalCenters-wrapper');},100);
-    /*var mapOptions = {
-    zoom: 18,
-    center: new google.maps.LatLng(31.780496,35.217254),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-	*/
-	prepareData();
-//	populateAreaList();
-	/*
-	$('input[name=searchBy]:radio').change(function () {
-
-		$("#medicalCenters").html("")
-		var chosenSearchBy = $('input[name=searchBy]:radio:checked').val()
-		if (chosenSearchBy === 'byArea') {
-			$('#byArea').siblings().hide()
-			$('#byArea').show()
-			$('#areaSelector').trigger('change');
-		}
-		else {
-			$('#nearest').siblings().hide()
-			$('#nearest').show()
-			if (typeof myPos === 'undefined') {
-				$('#nearest').html("Unable to find your location! Please search by area.")
-			}
-			else {
-				$('#nearest').html("Showing the 10 medical centers nearest to "+"<a href='javascript:jumpToMyLocation()'>you</a>")
-				displayMedicalCenters(10,function(medicalCenter) {
-					return true;
-				});
-			}
-		}
-	})*/
 	$("#areaSelector").change(function () {
 		$("#noListMessage").hide();
 		var area = $("#areaSelector option:selected").val();
@@ -168,17 +66,19 @@ function doWhenBothFrameworksLoaded() {
 		});		
 	});
 	getCurrentLocation();
-}
+});
 
 function parsePhoneNumber(phoneNum) {
 	return phoneNum.replace(/-/g,'')
 }
 function displayMedicalCenters(maxToDisplay, filterFunction) {
 	var str = ""
-	//sort them by distance, or else by name
+	//sort them by distance, then by id
 	medicalCentresData.sort(function(a,b) {
-		if (medicalCentersDistances.length > 0) return (getDistance(a.id) < getDistance(b.id)) ? -1 : 1
-		else return (a.name < b.name) ? -1 : 1
+		var distToA = getDistance(a.id)
+		var distToB = getDistance(b.id)
+		if (distToA == distToB) return (a.id < b.id) ? -1 : 1
+		else return (distToA < distToB) ? -1 : 1
 	})
 	var numCenters = 0
 	$.each(medicalCentresData, function(idx, obj){ 
@@ -270,31 +170,11 @@ function getDistance(centerId) {
 }
 
 function displayMedicalCenterInList(obj) {
-
-	//var lat = obj.marker.getPosition().lat()
-	//var lng = obj.marker.getPosition().lng()
-	//var str = '<span style="font-weight:bold">'+obj.name + '</span> - '+ obj.centreType
-	//if (typeof obj.distance !== 'undefined') str +=" ("+obj.distance.toFixed(2)+"km away)"
-	//var str ="<a href='javascript:showMedicalCenterOnMap("+obj.id+")'>"+obj.name+"</a>"
 	var str = "<li  data-filtertext='"+obj.name+"' center-id='"+obj.id+"'>" //data-icon='info'
 	str +="<a href='#centerDetails'>"
 	str += "<h3>"+obj.name +"</h3>"
 	str += "<p><strong>"+obj.address+"</strong></p>"
-	/*str += "<p class='ui-li-aside'>"
-	$.each(obj.phoneNumbers, function(idx,phoneNumber) {
-		str +="Phone: <a href='tel:"+parsePhoneNumber(phoneNumber.number)+"'>"+phoneNumber.number+"</a>"
-	});
-	str += "</p>"*/
-	
-	/*
-	$.each(obj.openingHours, function(idx,line) {
-		str +="<p>"+line+"</p>"
-	});
-	*/
-	//$.each(obj.phoneNumbers, function(idx,phoneNumber) {
-	//str +="<p>Phone: "+phoneNumber.number+"</p>"
-	//str +="<p>Phone: <a href='tel:"+parsePhoneNumber(phoneNumber.number)+"'>"+phoneNumber.number+"</a></p>"
-	//});
+
 	var distance = getDistance(obj.id)
 	if (distance !== null) {
 		str+="<p class='ui-li-aside'>"+distance.toFixed(2)+"km away</p>"
@@ -314,54 +194,10 @@ function showMedicalCenterOnMap(medicalCenter) {
 	$('#map_canvas').gmap('refresh');
 }
 
-function jumpToMyLocation() {
-	map.setCenter(myPos);
-}
-
-function getMedicalCenterById(id) {
-	for(var i=0 ; i < medicalCentersList.length; ++i) {
-		if (medicalCentersList[i].id === id) return medicalCentersList[i];
-	}
-}
 
 function handleCurrentPosition(position) {
-	myPos = new google.maps.LatLng(position.coords.latitude ,position.coords.longitude);
-	/*
-	var markerTitle = "You are here"
-	myPosMarker = new google.maps.Marker({
-					position: myPos,
-					map: map,
-					title: markerTitle,
-					icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-				});
-	var infowindow = new google.maps.InfoWindow({
-		content: '<div>'+markerTitle+'</div>'
-	});
-	map.setCenter(myPos);*/
-	
-	updateMedicalCentersDistances();
+	updateMedicalCentersDistances(position.coords.latitude ,position.coords.longitude);
 }
 
 function handleNoGeo(error) {
-	if ($('input[name=searchBy]:radio:checked').length === 0) {
-		$("input[name=searchBy]:radio[value=byArea]").click()
-	}
 }
-function showError(error)
-  {
-  switch(error.code) 
-    {
-    case error.PERMISSION_DENIED:
-      alert("User denied the request for Geolocation.");
-      break;
-    case error.POSITION_UNAVAILABLE:
-      alert("Location information is unavailable.")
-      break;
-    case error.TIMEOUT:
-      alert("The request to get user location timed out.")
-      break;
-    case error.UNKNOWN_ERROR:
-      alert("An unknown error occurred.")
-      break;
-    }
-  }
