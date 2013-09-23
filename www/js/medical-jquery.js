@@ -27,7 +27,7 @@ var medicalCentersDistances = []
 function updateMedicalCentersDistances(myLat, myLon) {
 	medicalCentersDistances = []
 	$.each(medicalCentresData, function(idx, obj){
-		var distance = getDistanceFromLatLonInKm(myLat, myLon), obj.location.lat, obj.location.lon);
+		var distance = getDistanceFromLatLonInKm(myLat, myLon, obj.location.lat, obj.location.lon);
 		medicalCentersDistances.push({id: obj.id, distance: distance})
 	});
 
@@ -61,7 +61,7 @@ $(document).ready(function() {
 		var centerType = localStorage.getItem("centerType");
 		displayMedicalCenters(9999,function(medicalCenter) {
 			var filterByType = centerType === medicalCenter.centreType
-			if (area === "All" || area === "Nearby") return filterByType;
+			if (area === "Nearby") return filterByType;
 			else return filterByType && medicalCenter.area === area;
 		});		
 	});
