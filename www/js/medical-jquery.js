@@ -43,8 +43,12 @@ function onResume() {
 	getCurrentLocation();
 }
 
+function getMedicalCenters() {
+}
 var map;
 $(document).ready(function() {
+
+	getMedicalCenters()
 	$("#centerDetails").on("pageshow", function onPageShow(e,data) {
 		displayMedicalCenterById(localStorage.getItem("centerId"));
 	});
@@ -211,7 +215,4 @@ function handleCurrentPosition(position) {
 		lastKnownPos = pos
 		updateMedicalCentersDistances(pos);
 	}
-}
-
-function handleNoGeo(error) {
 }
