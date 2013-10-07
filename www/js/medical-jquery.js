@@ -42,13 +42,17 @@ function onDeviceReady() {
 function onResume() {
 	getCurrentLocation();
 }
-
-function getMedicalCenters() {
+var medicalCentresData=[]
+function getMedicalCenters(url) {
+	$.getJSON(url, function (data) {medicalCentresData = data} )
+		.error(function(jqXHR, textStatus, errorThrown) {
+			alert("Unable to load medical data. Please try again later");
+		});
 }
 var map;
 $(document).ready(function() {
 
-	getMedicalCenters()
+	getMedicalCenters("http://jonnygraham.github.io/eggert_cohen/www/data/medicalCentersData.json")
 	$("#centerDetails").on("pageshow", function onPageShow(e,data) {
 		displayMedicalCenterById(localStorage.getItem("centerId"));
 	});
