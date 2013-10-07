@@ -33,6 +33,16 @@ function updateMedicalCentersDistances(pos) {
 
 }
 
+document.addEventListener('deviceready', onDeviceReady, false);
+function onDeviceReady() {
+	navigator.splashscreen.hide();
+	document.addEventListener("resume", onResume, false);
+}
+
+function onResume() {
+	getCurrentLocation();
+}
+
 var map;
 $(document).ready(function() {
 	$("#centerDetails").on("pageshow", function onPageShow(e,data) {
