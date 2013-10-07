@@ -69,6 +69,7 @@
 
         Otherwise, you can specify specific domains:
     -->
+	<access origin="*"/>
 	<access origin="http://maps.google.com"/>
 	<access origin="http://maps.gstatic.com"/>
 	<access origin="http://maps.googleapis.com"/>
