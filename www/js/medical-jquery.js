@@ -26,7 +26,7 @@ function getCurrentLocation() {
 var medicalCentersDistances = []
 function updateMedicalCentersDistances(pos) {
 	medicalCentersDistances = []
-	$.each(medicalCentresData, function(idx, obj){
+	$.each(medicalCentersData, function(idx, obj){
 		var distance = getDistanceFromLatLonInKm(pos.lat, pos.lon, obj.location.lat, obj.location.lon);
 		medicalCentersDistances.push({id: obj.id, distance: distance})
 	});
@@ -42,14 +42,14 @@ function onDeviceReady() {
 function onResume() {
 	getCurrentLocation();
 }
-var medicalCentresData=[]
+var medicalCentersData=[]
 function getMedicalCenters(url) {
 	$.getJSON(url, function (data) {
-		medicalCentresData2 = data;
+		medicalCentersData = data;
 		$('a.startButton').removeClass('ui-disabled');
 		} )
 		.error(function(jqXHR, textStatus, errorThrown) {
-			alert("Unable to load medical data. Please try again later");
+			alert("Unable to load Medical Center data. Please try again later");
 		});
 }
 var map;
@@ -95,14 +95,14 @@ function parsePhoneNumber(phoneNum) {
 function displayMedicalCenters(maxToDisplay, filterFunction) {
 	var str = ""
 	//sort them by distance, then by id
-	medicalCentresData.sort(function(a,b) {
+	medicalCentersData.sort(function(a,b) {
 		var distToA = getDistance(a.id)
 		var distToB = getDistance(b.id)
 		if (distToA == distToB) return (a.id < b.id) ? -1 : 1
 		else return (distToA < distToB) ? -1 : 1
 	})
 	var numCenters = 0
-	$.each(medicalCentresData, function(idx, obj){ 
+	$.each(medicalCentersData, function(idx, obj){ 
 		if (idx <= maxToDisplay) {
 			if(filterFunction(obj)) {
 				str += displayMedicalCenterInList(obj);
@@ -121,7 +121,7 @@ function displayMedicalCenters(maxToDisplay, filterFunction) {
 
 function displayMedicalCenterById(id) {
 	console.log(id)
-	var medicalCenters = $.grep(medicalCentresData, function(obj,idx){ 
+	var medicalCenters = $.grep(medicalCentersData, function(obj,idx){ 
 		return (obj.id === id)
 	});
 	if (medicalCenters.length != 1) {
