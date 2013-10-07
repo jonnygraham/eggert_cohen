@@ -142,10 +142,10 @@ function displayMedicalCenterDetails(obj) {
 	if (distance !== null) {
 		distance = " ("+distance.toFixed(2)+"km away)";
 	}
-	/*if (obj.location.lat !== 0) {
+	if (obj.location.lat !== 0) {
 		//address += " (<a href='waze://?ll="+obj.location.lat+","+obj.location.lon+"' target='_blank'>Open in Waze</a>)";
-		address += " (<a href='javascript:launchWaze("+obj.location.lat+","+obj.location.lon+")' target='_blank'>Open in Waze</a>)";
-		}*/
+		address += " (<a href='http://waze.to/?ll="+obj.location.lat+","+obj.location.lon+"&navigate=yes'>Open in Waze</a>)";
+	}
 	$("#centerAddress").html(address)
 	$("#centerDistance").html(distance)
 	var phoneNumbers = ""

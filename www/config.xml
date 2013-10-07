@@ -74,6 +74,7 @@
 	<access origin="http://maps.googleapis.com"/>
 	
 	<access origin="http://www.google.com" browserOnly="true"/>
+	<access origin="http://waze.to" browserOnly="true"/>
 	
 	<access origin="http://jonnygraham.github.io"/>
     <!--
