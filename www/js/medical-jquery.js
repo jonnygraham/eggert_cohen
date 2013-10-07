@@ -44,7 +44,10 @@ function onResume() {
 }
 var medicalCentresData=[]
 function getMedicalCenters(url) {
-	$.getJSON(url, function (data) {medicalCentresData = data} )
+	$.getJSON(url, function (data) {
+		medicalCentresData2 = data;
+		$('a.startButton').removeClass('ui-disabled');
+		} )
 		.error(function(jqXHR, textStatus, errorThrown) {
 			alert("Unable to load medical data. Please try again later");
 		});
