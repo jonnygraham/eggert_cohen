@@ -42,16 +42,48 @@ function onDeviceReady() {
 function onResume() {
 	getCurrentLocation();
 }
-var medicalCentersData=[]
+
+function getCenterTypes() {
+	return getDistinct(function(obj) { return obj.centreType })
+}
+
+function getAreas() {
+	return getDistinct(function(obj) { return obj.area })
+}
+
+function getDistinct(selector) {
+	var items = medicalCentersData.map(selector)
+	var distinctItems = items.filter(function(item,i,items){
+		return i==items.indexOf(item);
+	});
+	return distinctItems;
+}
+
+function onDataReady() {
+	populateTypesList(getCenterTypes(),"typesList");
+	populateAreaSelector(getAreas(),"areaSelector");
+	$('a.startButton').removeClass('ui-disabled');
+}
+
+var medicalCentersData=null;
 function getMedicalCenters(url) {
-	$.getJSON(url, function (data) {
-		medicalCentersData = data;
-		$('a.startButton').removeClass('ui-disabled');
+	$.getJSON(url,
+		function (data) {
+			medicalCentersData = data;
+			localStorage.setItem("medicalCentersData",medicalCentersData)
+			onDataReady();
 		} )
 		.error(function(jqXHR, textStatus, errorThrown) {
-			alert("Unable to load Medical Center data. Please try again later");
+			medicalCentersData = localStorage.getItem("medicalCentersData");
+			if (medicalCentersData === null) {
+				alert("Unable to load Medical Center data. Please check your connection to the internet.");
+			}
+			else {
+				onDataReady();
+			}
 		});
 }
+var defaultZoom = 16;
 var map;
 $(document).ready(function() {
 
@@ -64,11 +96,8 @@ $(document).ready(function() {
 		$("#centerTypeTitle").html(centerType)
 		$('#areaSelector').trigger('change');
 	});
-	$("#typesList a").on("click", function(event) {
-		localStorage.setItem("centerType",$(this).attr("center-type"));
-		$("#centersList").html("")
-	});
-	$('#map_canvas').gmap({'center': new google.maps.LatLng(31.780496,35.217254), 'zoom': 16, 'disableDefaultUI':true, 'callback': function() {
+
+	$('#map_canvas').gmap({'center': new google.maps.LatLng(31.780496,35.217254), 'zoom': defaultZoom, 'disableDefaultUI':true, 'callback': function() {
 						map = this;
 						var self = this;
 						self.addMarker({'position': this.get('map').getCenter() }).click(function() {
@@ -119,6 +148,27 @@ function displayMedicalCenters(maxToDisplay, filterFunction) {
 	});
 }
 
+function populateTypesList(centerTypes,id) {
+	var htmlStr = ""
+	$.each(centerTypes,
+		function(idx,centerType) {
+			htmlStr += '<li><a href="#chooseCenter" center-type="'+centerType+'">'+centerType+'</a></li>';
+		}
+	);
+	$("#"+id).html(htmlStr)
+	//$("#"+id).listview("refresh") Populated before rendered so don't call refresh
+	$("#"+id+" a").on("click", function(event) {
+		localStorage.setItem("centerType",$(this).attr("center-type"));
+		$("#centersList").html("")
+	});
+}
+function populateAreaSelector(areas,id) {
+	$.each(areas,function(idx, area) {
+		$("#"+id).append('<option value="'+area+'">'+area+'</option>')
+	})
+}
+
+
 function displayMedicalCenterById(id) {
 	console.log(id)
 	var medicalCenters = $.grep(medicalCentersData, function(obj,idx){ 
@@ -138,13 +188,14 @@ function displayMedicalCenterDetails(obj) {
 	$("#centerNameTitle").html(obj.name)
 	$("#centerName").html(obj.name)
 	var address = obj.address;
-	var distance = getDistance(obj.id)
-	if (distance !== null) {
-		distance = " ("+distance.toFixed(2)+"km away)";
+	var dist = getDistance(obj.id)
+	var distance = ""
+	if (dist !== null) {
+		distance = " ("+dist.toFixed(2)+"km away)";
 	}
 	if (obj.location.lat !== 0) {
 		//address += " (<a href='waze://?ll="+obj.location.lat+","+obj.location.lon+"' target='_blank'>Open in Waze</a>)";
-		address += " (<a href='http://waze.to/?ll="+obj.location.lat+","+obj.location.lon+"&navigate=yes'>Open in Waze</a>)";
+		distance += " (<a href='http://waze.to/?ll="+obj.location.lat+","+obj.location.lon+"&navigate=yes'>Open in Waze</a>)";
 	}
 	$("#centerAddress").html(address)
 	$("#centerDistance").html(distance)
@@ -170,18 +221,7 @@ function displayMedicalCenterDetails(obj) {
 	$("#centerOpeningHours").html(openingHours)
 	showMedicalCenterOnMap(obj);
 }
-/*
-function launchWaze() {
-	if(window.plugins != undefined) {
-		window.plugins.webintent.startActivity({
-			action: window.plugins.webintent.ACTION_VIEW,
-			url: 'waze://?ll='+lat+','+lon}, 
-			function() {}, 
-			function() {alert('Failed to open Waze')}
-		);
-	}
-}
-*/
+
 function getDistance(centerId) {
 	var medicalCenters = $.grep(medicalCentersDistances, function(obj,idx){ 
 		return (obj.id === centerId)
@@ -212,6 +252,7 @@ function showMedicalCenterOnMap(medicalCenter) {
 							map.openInfoWindow({ 'content': medicalCenter.name }, this);
 						});
 	map.get('map').setCenter(latLng);
+	map.get('map').setZoom(defaultZoom);
 	$('#map_canvas').gmap('refresh');
 }
 

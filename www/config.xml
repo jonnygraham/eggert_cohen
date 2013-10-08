@@ -72,7 +72,7 @@
 	<access origin="http://maps.google.com"/>
 	<access origin="http://gstatic.com" subdomains="true" />
 	<access origin="http://googleapis.com" subdomains="true" />
-	
+	<access origin="http://googleusercontent.com" subdomains="true" />
 	<access origin="http://www.google.com" browserOnly="true"/>
 	<access origin="http://waze.to" browserOnly="true"/>
 	
