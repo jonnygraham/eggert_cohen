@@ -73,7 +73,7 @@ function getMedicalCenters(url) {
 			localStorage.setItem("medicalCentersData",medicalCentersData)
 			onDataReady();
 		} )
-		.error(function(jqXHR, textStatus, errorThrown) {
+		.fail(function(jqXHR, textStatus, errorThrown) {
 			medicalCentersData = localStorage.getItem("medicalCentersData");
 			if (medicalCentersData === null) {
 				alert("Unable to load Medical Center data. Please check your connection to the internet.");
