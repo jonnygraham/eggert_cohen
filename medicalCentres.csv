@@ -1,4 +1,4 @@
-Name,Adress,hours,telephone
+Name,Address,Hours,Telephone
 ,,,
 Jerusalem area,,,
 ,,,
@@ -56,6 +56,14 @@ Ofek Labs,"Diskin 9, Jerusalem",,02-561-8732
 ,,,
 Rambam labs,"Hillel 16, Jerusalem",,
 ,,,
+Hospitals,,,
+,,,
+Shaarei Tzedek,"Beyt 12, Jerusalem",24/7,02-655-5111
+,,,
+Haddasa Har Hazofim,Sderot Churchill Har Hatzofim,24/7,02-584-4111
+,,,
+Haddasa Ein Kerem,Ein Kerem Medical Center,24/7,02-677-7111
+,,,
 Tel-Aviv area,,,
 ,,,
 Clinics,,,
@@ -112,6 +120,12 @@ Pharmacies,,,
 Moshenzon,"Ben Yehuda 83, Tel Aviv",,03-522-2481
 ,,,
 Geva,"Shaar Hagai 14, Netanya",,09-882-2695
+,,,
+Hospitals,,,
+,,,
+Tel Ha'Shomer,Tel Ha'Shomer Medical center,24/7,03-530-3030
+,,,
+Kaplan,"Pasternak Road, Rehovot",24/7,08-944-1211
 ,,,
 North area,,,
 Clinics,,,
@@ -188,6 +202,21 @@ Golan,"Jerusalem 39, Tsfat",,04-692-0472
 ,,,
 Schwartz,"Hagalil 7, Tiberias",,04-672-0994
 ,,,
+Hospitals,,,
+,,,
+Rambam,"Ha'Aliya Hashniya 8, Haifa",24/7,1700-50-51-50
+,,,
+Poriya,Ramat Poriya,24/7,04-665-2211
+,,,
+Hillel Yafeh,"Hillel Yafeh Medical Center, Hadera",24/7,04-630-4304
+,,,
+Ziv,"Rambam Road, Tzfat",24/7,04-682-8811
+,,,
+Haemek,"Sderot Yitshak Rabin 21, Afula",24/7,04-649-4000
+,,,
+,,,
+,,,
+,,,
 South area,,,
 ,,,
 Clinics,,,
@@ -232,3 +261,11 @@ Dr. Meir Weisnovitz,"Savyon 12, Eilat",Call for appointment,08-632-6138
 Pharmacies,,,
 ,,,
 Michlin,"Mercaz Rechter, Eilat",,08-637-2434
+,,,
+Hospitals,,,
+,,,
+Soroka,"Sderot Reger, Beer Sheva",24/7,08-640-0111
+,,,
+Brazilay,"Ha'Histadrut 3, Ashkelon",24/7,08-674-5555
+,,,
+Yoseftal,"Yotam Road, Eilat",24/7,08-6358011
