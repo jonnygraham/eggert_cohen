@@ -63,6 +63,7 @@ function onDataReady() {
 	populateTypesList(getCenterTypes(),"typesList");
 	populateAreaSelector(getAreas(),"areaSelector");
 	$('a.startButton').removeClass('ui-disabled');
+	getCurrentLocation();
 }
 
 var medicalCentersData=null;
@@ -115,7 +116,6 @@ $(document).ready(function() {
 			else return filterByType && medicalCenter.area === area;
 		});		
 	});
-	getCurrentLocation();
 });
 
 function parsePhoneNumber(phoneNum) {
