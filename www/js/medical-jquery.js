@@ -88,6 +88,7 @@ var defaultZoom = 16;
 var map;
 $(document).ready(function() {
 
+	FastClick.attach(document.body);
 	getMedicalCenters("http://jonnygraham.github.io/eggert_cohen/www/data/medicalCentersData.json")
 	$("#centerDetails").on("pageshow", function onPageShow(e,data) {
 		displayMedicalCenterById(localStorage.getItem("centerId"));
