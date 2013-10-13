@@ -120,7 +120,7 @@ $(document).ready(function() {
 });
 
 function parsePhoneNumber(phoneNum) {
-	return phoneNum.replace(/-/g,'')
+	return phoneNum.replace(/\D/g,'')
 }
 function displayMedicalCenters(maxToDisplay, filterFunction) {
 	var str = ""
