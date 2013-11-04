@@ -35,6 +35,7 @@ function updateMedicalCentersDistances(pos) {
 
 document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
+	console.log("Device Ready");
 	navigator.splashscreen.hide();
 	document.addEventListener("resume", onResume, false);
 }
@@ -86,9 +87,11 @@ function getMedicalCenters(url) {
 }
 var defaultZoom = 16;
 var map;
-$(document).ready(function() {
+
+function whenReady() {
 
 	FastClick.attach(document.body);
+	console.log("Fetching medical data");
 	getMedicalCenters("http://jonnygraham.github.io/eggert_cohen/www/data/medicalCentersData.json")
 	$("#centerDetails").on("pageshow", function onPageShow(e,data) {
 		displayMedicalCenterById(localStorage.getItem("centerId"));
@@ -117,8 +120,11 @@ $(document).ready(function() {
 			else return filterByType && medicalCenter.area === area;
 		});		
 	});
+}
+/*$(document).ready(function() {
+	whenReady();
 });
-
+*/
 function parsePhoneNumber(phoneNum) {
 	return phoneNum.replace(/\D/g,'')
 }
@@ -265,3 +271,56 @@ function handleCurrentPosition(position) {
 		updateMedicalCentersDistances(pos);
 	}
 }
+
+
+	console.log("Starting");
+		var jqmReady = $.Deferred();
+		var pgReady = $.Deferred();
+		var app = {
+		   //Callback for when the app is ready
+		   callback: null,
+		   // Application Constructor
+		   initialize: function(callback) {
+		      console.log("initialize called");
+			  this.callback = callback;
+			  var browser = document.URL.match(/^https?:/);
+			  if(browser) {
+				 console.log("Is web.");
+				 //In case of web we ignore PG but resolve the Deferred Object to trigger initialization
+			 pgReady.resolve();
+			  }
+			  else {
+				 console.log("Is not web.");
+			 this.bindEvents();
+			  }
+		   },
+		   bindEvents: function() {
+			  document.addEventListener('deviceready', this.onDeviceReady, false);
+		   },
+		   onDeviceReady: function() {
+			  // The scope of 'this' is the event, hence we need to use app.
+			  app.receivedEvent('deviceready');
+		   },
+		   receivedEvent: function(event) {
+			  switch(event) {
+				 case 'deviceready':
+				pgReady.resolve();
+				break;
+			  }
+		   }
+		};
+		$(document).on("pageinit", function(event, ui) {
+			console.log("pageinit called");
+		   jqmReady.resolve();
+		});
+		/**
+		 * General initialization.
+		 */
+		console.log("go!");
+		$.when(jqmReady, pgReady).then(function() {
+		   //Initialization code here
+		   if(app.callback) {
+			  app.callback();
+		   }
+		   console.log("Frameworks ready.");
+		});
