@@ -91,7 +91,7 @@ var map;
 function whenReady() {
 
 	// For ios7 the statusbar overlays the menu by default
-	if(typeof StatusBar !== 'undefined') StatusBar.overlaysWebView(false);
+	//if(typeof StatusBar !== 'undefined') StatusBar.overlaysWebView(false);
 	
 	FastClick.attach(document.body);
 	console.log("Fetching medical data");

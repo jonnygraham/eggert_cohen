@@ -32,7 +32,7 @@
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version"           value="2.9.0" />          <!-- all: current version of PhoneGap -->
+    <preference name="phonegap-version"           value="3.1.0" />          <!-- all: current version of PhoneGap -->
     <preference name="orientation"                value="portrait" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="false" />           <!-- all: hides the status bar at the top of the screen -->
@@ -55,7 +55,10 @@
         <gap:plugin name="Example" />
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
-	<!--gap:plugin name="com.phonegap.plugin.statusbar" /-->
+	<gap:plugin name="com.phonegap.plugin.statusbar" >
+		<param name="StatusBarOverlaysWebView" value="false" />
+	</gap:plugin>
+	
 
     <!-- Define app icon for each platform. -->
     <icon src="images/logo.png" />
@@ -70,15 +73,24 @@
 
         Otherwise, you can specify specific domains:
     -->
+	<access origin="*" />
+	<!--
 	<access origin="http://maps.google.com"/>
 	<access origin="http://gstatic.com" subdomains="true" />
 	<access origin="http://googleapis.com" subdomains="true" />
 	<access origin="http://googleusercontent.com" subdomains="true" />
 	<access origin="http://www.google.com" browserOnly="true"/>
+	<access origin="https://maps.google.com"/>
+	<access origin="https://gstatic.com" subdomains="true" />
+	<access origin="https://googleapis.com" subdomains="true" />
+	<access origin="https://googleusercontent.com" subdomains="true" />
+	<access origin="https://www.google.com" browserOnly="true"/>
+	
 	<access origin="http://waze.to" browserOnly="true"/>
 	
 	<access origin="http://jonnygraham.github.io"/>
 	<access origin="http://egertcohen.co.il" subdomains="true"/>
+	-->
     <!--
         <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
         <access origin="http://phonegap.com" subdomains="true" />  - same as above, but including subdomains, such as http://build.phonegap.com/
