@@ -90,6 +90,9 @@ var map;
 
 function whenReady() {
 
+	// For ios7 the statusbar overlays the menu by default
+	if(StatusBar) StatusBar.overlaysWebView(false);
+	
 	FastClick.attach(document.body);
 	console.log("Fetching medical data");
 	getMedicalCenters("http://jonnygraham.github.io/eggert_cohen/www/data/medicalCentersData.json")
