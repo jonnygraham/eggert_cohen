@@ -55,7 +55,7 @@
         <gap:plugin name="Example" />
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
-	<gap:plugin name="com.phonegap.plugin.statusbar" />
+	<!--gap:plugin name="com.phonegap.plugin.statusbar" /-->
 
     <!-- Define app icon for each platform. -->
     <icon src="images/logo.png" />
