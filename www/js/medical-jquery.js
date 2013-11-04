@@ -201,7 +201,7 @@ function displayMedicalCenterDetails(obj) {
 	var dist = getDistance(obj.id)
 	var distance = ""
 	if (dist !== null) {
-		distance = " ("+dist.toFixed(2)+"km away)";
+		distance = " ("+dist.toFixed(0)+"km away)";
 	}
 	if (obj.location.lat !== 0) {
 		//address += " (<a href='waze://?ll="+obj.location.lat+","+obj.location.lon+"' target='_blank'>Open in Waze</a>)";
@@ -248,7 +248,7 @@ function displayMedicalCenterInList(obj) {
 
 	var distance = getDistance(obj.id)
 	if (distance !== null) {
-		str+="<p class='ui-li-aside'>"+distance.toFixed(2)+"km away</p>"
+		str+="<p class='ui-li-aside'>"+distance.toFixed(0)+"km away</p>"
 	}
 	str +="</a>"
 	str +="</li>"
@@ -319,7 +319,6 @@ function handleCurrentPosition(position) {
 		/**
 		 * General initialization.
 		 */
-		console.log("go!");
 		$.when(jqmReady, pgReady).then(function() {
 		   //Initialization code here
 		   if(app.callback) {
