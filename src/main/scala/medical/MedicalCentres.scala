@@ -53,7 +53,7 @@ object MedicalCentersParser extends App {
   var centreType = ""
   var id = 1
   var medicalCenters : List[MedicalCentre] = Nil
-  Source.fromFile("C:/dev/egert_cohen/medicalCentres.csv").getLines.drop(1).foreach{ line =>
+  Source.fromFile("medicalCentres.csv").getLines.drop(1).foreach{ line =>
     val cols : List[String] = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)").toList.map(s=>stripQuotes(s).trim)
     cols match {
       case Nil  => // do nothing
@@ -72,12 +72,18 @@ object MedicalCentersParser extends App {
           val medCentIndex = medicalCenters.length -1
           val updatedHours = if (hours == "") medCent.openingHours else medCent.openingHours :+ hours
           val updatedPhoneNumbers = if (telephone == "") medCent.phoneNumbers else medCent.phoneNumbers :+ PhoneNumber(None,telephone,None)
-          val updatedMedCent = MedicalCentre(medCent.id,medCent.centreType, medCent.area, medCent.name, medCent.address, updatedHours, updatedPhoneNumbers,medCent.location)
+          val updatedMedCent = medCent.copy(openingHours=updatedHours, phoneNumbers=updatedPhoneNumbers)
+		  //MedicalCentre(medCent.id,medCent.centreType, medCent.area, medCent.name, medCent.address, updatedHours, updatedPhoneNumbers,medCent.location)
           medicalCenters = medicalCenters.updated(medCentIndex,updatedMedCent)
         }
         else {
           val add = address+", Israel"
-          val loc = getLatLng(add)
+		  
+          val loc = {
+		    val coords = data.drop(2)
+			if (!coords.isEmpty) LatLon(BigDecimal(coords(0)),BigDecimal(coords(1)))
+			else getLatLng(add)
+		  }
           //println("****"+add+": "+loc)
           val medCent = MedicalCentre(id.toString,centreType, area, name, address, List(hours),List(PhoneNumber(None,telephone,None)),  loc)
 		  id = id+1
@@ -86,7 +92,7 @@ object MedicalCentersParser extends App {
       case unknown => println("Unknown:"+unknown)
     }
   }
-  println(medicalCenters.mkString("\n"))
+  //println(medicalCenters.mkString("\n"))
 
   val mapper = new ObjectMapper()
   mapper.registerModule(DefaultScalaModule)
@@ -94,7 +100,10 @@ object MedicalCentersParser extends App {
   val out = new StringWriter
   mapper.writeValue(out, medicalCenters)
   val json = out.toString
-  println(json)
+  val jsonFile = new java.io.PrintWriter("medicalCentersData.json")
+  jsonFile.write(json)
+  jsonFile.close
+  println("Written data to medicalCentersData.json")
 
 }
 
