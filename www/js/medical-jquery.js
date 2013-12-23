@@ -95,7 +95,7 @@ function whenReady() {
 	
 	FastClick.attach(document.body);
 	console.log("Fetching medical data");
-	getMedicalCenters("http://jonnygraham.github.io/eggert_cohen/www/data/medicalCentersData.json")
+	getMedicalCenters("http://egertcohen.co.il/medicalCentersData.json")
 	$("#centerDetails").on("pageshow", function onPageShow(e,data) {
 		displayMedicalCenterById(localStorage.getItem("centerId"));
 	});
