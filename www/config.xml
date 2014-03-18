@@ -73,7 +73,7 @@
 	<icon src="icons/ios/icon-72@2x.png" gap:platform="ios" width="144" height="144" />
 
     <!-- Define app splash screen for each platform. -->
-	<gap:splash src="images/logo.png"/>
+	<gap:splash src="icons/logo.png"/>
 	
 	<!--<gap:splash src="splash/ios/Default-568h@2x~iphone.png" gap:platform="ios" width="320" height="480" />
     
