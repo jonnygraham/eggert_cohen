@@ -69,14 +69,17 @@
 	<icon src="icons/ios/icon.png" gap:platform="ios" width="57" height="57" />
 	<icon src="icons/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
 	<icon src="icons/ios/icon@2x.png" gap:platform="ios" width="114" height="114" />
+	<icon src="icons/ios/icon-60@2x.png" gap:platform="ios" width="120" height="120" />
 
 	<icon src="icons/ios/icon-72@2x.png" gap:platform="ios" width="144" height="144" />
+	<icon src="icons/ios/icon-76.png" gap:platform="ios" width="76" height="76" />
+	<icon src="icons/ios/icon-76@2x.png" gap:platform="ios" width="152" height="152" />
 
     <!-- Define app splash screen for each platform. -->
 	<gap:splash src="icons/logo.png"/>
 	
-	<!--<gap:splash src="splash/ios/Default-568h@2x~iphone.png" gap:platform="ios" width="320" height="480" />
-    
+	<gap:splash src="splash/ios/icon-568h@2x~iphone.png" gap:platform="ios" width="640" height="1136" />
+    <!--
 	<gap:splash src="splash/ios/Default.png" gap:platform="ios" width="320" height="480" />
 	<gap:splash src="splash/ios/Default_at_2x.png" gap:platform="ios" width="640" height="960" />
 	<gap:splash src="splash/ios/Default_iphone5.png" gap:platform="ios" width="640" height="1136" />
@@ -111,7 +114,6 @@
 	
 	<access origin="http://waze.to" browserOnly="true"/>
 	
-	<access origin="http://jonnygraham.github.io"/>
 	<access origin="http://egertcohen.co.il" subdomains="true"/>
 	
     <!--
