@@ -39,3 +39,40 @@ table.rounded-corners {
 		display: none;
 	} 
 }
+
+.ui-icon-user
+{
+    background: url('images/user-white.png') no-repeat rgba(0, 0, 0, 0.4) !important;
+    background-size: 16px 16px;
+}
+/*
+html,
+body,
+#centerDetails {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#centerDetails,
+#centerDetails * {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#centerDetails .ui-content {
+  height: inherit; // inherit height without padding nor border 
+}
+*/
+
+#map_canvas {
+  margin-top:3px;
+}
+/*#map_canvas {
+    position: absolute;
+    top: 120px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}*/

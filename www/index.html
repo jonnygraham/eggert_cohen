@@ -10,9 +10,11 @@
 </head> 
 <body style="height:100%"> 
 <div data-role="page" id="info" data-add-back-btn="true">
-	<div data-role="header"  data-position="fixed">
-		<!--<a href="#" data-icon="delete" class="ui-btn-right">Exit</a>-->
-		<h1>Egert & Cohen</h1>
+	<div data-role="header">
+		<h1 class="ui-title" role="heading">Egert & Cohen</h1>
+		<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">		
+			<a href="#myCard" data-role="button" data-icon="user">My Card</a>
+		</div>
 	</div>
 	<div data-role="content">
 		<div style="center-header"><h2>Shalom and welcome to Israel!</h2></div>
@@ -52,26 +54,27 @@
 	
 </div>
 <div data-role="page" id="chooseType">
-	<div data-role="header"  data-position="fixed">
-		<a href="#info" data-icon="info" class="ui-btn-right">Info</a>
-		<h1>Egert & Cohen</h1>
+	<div data-role="header">
+		<h1 class="ui-title" role="heading">Egert & Cohen</h1>
+		<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
+			<a href="#info" data-role="button" data-icon="info" >Info</a>
+			<a href="#myCard" data-role="button" data-icon="user">My Card</a>
+		</div>
 	</div>
 	<div data-role="content">
 		<ul data-role="listview" data-inset="true" data-filter="false" id="typesList">
-<!--			<li><a href="#chooseCenter" center-type="Doctors">Doctors</a></li>
-			<li><a href="#chooseCenter" center-type="Specialists">Specialists</a></li>
-			<li><a href="#chooseCenter" center-type="Pharmacies">Pharmacies</a></li>
-			<li><a href="#chooseCenter" center-type="Clinics">Clinics</a></li>
-			<li><a href="#chooseCenter" center-type="Laboratories">Laboratories</a></li>-->
 		</ul>
 	</div>
 </div>
 
-<div data-role="page" id="chooseCenter">
-	<div data-role="header"  data-position="fixed">
-	<a data-role="button" data-rel="back" data-icon="arrow-l">Back</a>
-	<a href="#info" data-icon="info" class="ui-btn-right">Info</a>
-		<h1><span id="centerTypeTitle"/></h1>
+<div data-role="page" id="chooseCenter" data-add-back-btn="true">
+	<div data-role="header">
+		<h1 class="ui-title" role="heading"><span id="centerTypeTitle"/></h1>
+		<!--<a data-role="button" data-rel="back" data-icon="arrow-l">Back</a>-->
+		<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
+			<a href="#info" data-role="button" data-icon="info" >Info</a>
+			<a href="#myCard" data-role="button" data-icon="user">My Card</a>
+		</div>
 	</div>
 	<div data-role="content">
 		<select id="areaSelector">
@@ -87,38 +90,82 @@
 		</ul>
 	</div>
 </div>
-<div data-role="page" id="centerDetails">
-		<div data-role="header" data-position="fixed">
-			<a data-role="button" data-rel="back" data-icon="back">Back</a>
-			<a href="#info" data-icon="info" class="ui-btn-right">Info</a>
-			<h1><span id="centerNameTitle"/></h1>
+<div data-role="page" id="centerDetails" data-add-back-btn="true">
+	<div data-role="header">
+		<h1 class="ui-title" role="heading"><span id="centerNameTitle"/></h1>
+		<!--<a data-role="button" data-rel="back" data-icon="arrow-l">Back</a>-->
+		<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
+			<a href="#info" data-role="button" data-icon="info" >Info</a>
+			<a href="#myCard" data-role="button" data-icon="user">My Card</a>
 		</div>
-		<div data-role="content">
-			<div class="rounded-corners">
+	</div>
+		<div data-role="content" >
+			<div class="rounded-corners" id="XX">
 				<strong><span id="centerType"></span>: <span id="centerName"/></strong>
 				<div><span id="centerAddress"></span><span id="centerDistance"></span></div>
 				<div id="centerPhoneNumbers"></div>
 				<strong>Opening Hours</strong>
 				<div id="centerOpeningHours"></div>
 			</div>
-			<div id="map_canvas" style="height:200px;margin-top:3px"></div>
+			<div id="map_canvas" ></div><!-- style="height:200px;margin-top:3px"-->
 		</div>
 </div>
+<div data-role="page" id="myCard"  data-add-back-btn="true">
+	<div data-role="header">
+		<h1 class="ui-title" role="heading">My Card</h1>
+
+	</div>
+		<div data-role="content">
+		<div id="myCardDetails">
+			<div>
+			<ul data-role="listview" data-inset="true">
+				<li>Name:<span id="myCardName"/></li>
+				<li>Passport #:<span id="myCardPassport"/></li>
+				<li>Policy #:<span id="myCardPolicyNumber"/> (<span id="myCardPolicyNumberExtension"/>)</li>
+				<li>Bus Code:<span id="myCardBusCode"/></li>
+				<li>Operator:<span id="myCardOperator"/></li>
+			</ul>
+			</div>
+			<div data-role="ui-bar" style="padding-top:20px;">
+			<a href="#popupCardFind" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="search" data-theme="a" data-transition="pop">Find/Refresh</a>
+			</div>
+		</div>
+<!--		https://www.ctas.co.il/card/?id=16575&code=49201862
+
+json returned:
+{"firstname":"Chloe","lastname":"Cohen","passport":"452462064","policynumber":null,"policynumberextension":null,"buscode":"YA-32-616","operator":"Yael Adventures"} 
+-->
+	</div>
+
+<div data-role="popup" id="popupCardFind" data-theme="a" class="ui-corner-all">
+	<form>
+		<div style="padding:10px 20px;">
+		  <label for="passportNumber">Passport Number:</label>
+		  <input type="text" name="passportNumber" id="passportNumber" value="" placeholder="passport number" data-theme="a">
+		  <button type="submit" data-theme="b" data-icon="check" id="myCardFindButton">Find my card</button>
+		</div>
+	</form>
+</div>	
+</div>
+
 	<script src="js/fastclick.min.js"></script>
 	<script src="js/jquery-1.9.1.min.js"></script>
 	<script src="js/medical-jquery.js"></script>
 	<script src="js/query.ui.map.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyD51NW7mIAu-vSe0y8rHM8_BkQ08FlYR7s&sensor=false"></script>
 	<script>
 
 	app.initialize(function() {
 		whenReady();
 	});
+	
+	whenReady(); // REMOVE
 	</script>
 	<script src="js/jquery.mobile-1.3.2.min.js"></script>
 	<script src="phonegap.js"></script>
 	<!--<script src="http://debug.phonegap.com/target/target-script-min.js#egert_cohen_debug"></script>-->
 	
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyD51NW7mIAu-vSe0y8rHM8_BkQ08FlYR7s&sensor=false"></script>
+
 <!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script> -->
 
 </body>
