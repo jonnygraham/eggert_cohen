@@ -58,7 +58,8 @@
 	<gap:plugin name="com.phonegap.plugin.statusbar" >
 		<param name="StatusBarOverlaysWebView" value="false" />
 	</gap:plugin>
-	
+	<gap:plugin name="org.apache.cordova.dialogs">
+	</gap:plugin>
 
     <!-- Define app icon for each platform. -->
 	<icon src="icons/android/drawable-ldpi/ic_launcher.png" gap:platform="android" gap:density="ldpi" />

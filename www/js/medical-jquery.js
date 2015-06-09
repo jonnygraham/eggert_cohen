@@ -100,18 +100,62 @@ function whenReady() {
 		displayMedicalCenterById(localStorage.getItem("centerId"));
 	});
 	$("#chooseCenter").on("pageshow", function onPageShow(e,data) {
+		console.log("Show chooseCenter");
 		var centerType = localStorage.getItem("centerType")
 		$("#centerTypeTitle").html(centerType)
 		$('#areaSelector').trigger('change');
 	});
+	function populateMyCard(card) {
+		if (card !== null) {
+			$("#myCardName").html(card.firstname +" "+card.lastname);
+			$("#myCardPassport").html(card.passport);
+			$("#myCardPolicyNumber").html(card.policynumber);
+			$("#myCardPolicyNumberExtension").html(card.policynumberextension);
+			$("#myCardBusCode").html(card.buscode);
+			$("#myCardOperator").html(card.operator);
+		}
+	};
+	$("#myCard").on("pageshow", function onPageShow(e,data) {
+		var card = localStorage.getItem("cardDetails");
+		populateMyCard(card);
+	});
+	$("#popupCardFind").on("popupafteropen", function onPageShow(e,data) {
+		var card = localStorage.getItem("cardDetails");
+		// pre-populate form with currently known passport number
+		if (card !== null && card.passport !== null) {
+			$("#passportNumber").html(card.passport);
+		}
+		
+        $("#myCardFindButton").on('click', function() { // catch the form's submit event
+            if($('#passportNumber').val().length > 0){
+				
+				var url = 'https://www.ctas.co.il/card/?id=16575&code=49201862';
+			$.getJSON(url,
+					function (cardData) {
+						if (cardData.error) {
+							alert(cardData.error);
+						} else {
+							localStorage.setItem("cardDetails",cardData)
+							populateMyCard(cardData);
+						}
+						$("#popupCardFind").popup('close');
+						
+					} )
+					.fail(function(jqXHR, textStatus, errorThrown) {
+						alert("Unable to reach server to find your card. Please check your connection to the internet or try again later.");
+						$("#popupCardFind").popup('close');
+					});
+		
+            } else {
+                alert('Please enter your passport number');
+            }           
+            return false; // cancel original event to prevent form submitting
+        });    
 
-	$('#map_canvas').gmap({'center': new google.maps.LatLng(31.780496,35.217254), 'zoom': defaultZoom, 'disableDefaultUI':true, 'callback': function() {
-						map = this;
-						var self = this;
-						self.addMarker({'position': this.get('map').getCenter() }).click(function() {
-							self.openInfoWindow({ 'content': 'You are here!' }, this);
-						});
-					}}); 
+		
+		
+	});
+
 	$("#areaSelector").change(function () {
 		$("#noListMessage").hide();
 		var area = $("#areaSelector option:selected").val();
@@ -119,10 +163,18 @@ function whenReady() {
 		var centerType = localStorage.getItem("centerType");
 		displayMedicalCenters(9999,function(medicalCenter) {
 			var filterByType = centerType === medicalCenter.centreType
-			if (area === "Nearby") return filterByType;
+			if (area === "Nearby" || medicalCenter.area === "All") return filterByType;
 			else return filterByType && medicalCenter.area === area;
 		});		
 	});
+	
+	$('#map_canvas').gmap({'center': new google.maps.LatLng(31.780496,35.217254), 'zoom': defaultZoom, 'disableDefaultUI':true, 'callback': function() {
+						map = this;
+						var self = this;
+						self.addMarker({'position': this.get('map').getCenter() }).click(function() {
+							self.openInfoWindow({ 'content': 'You are here!' }, this);
+						});
+					}}); 
 }
 /*$(document).ready(function() {
 	whenReady();
@@ -263,6 +315,7 @@ function showMedicalCenterOnMap(medicalCenter) {
 						});
 	map.get('map').setCenter(latLng);
 	map.get('map').setZoom(defaultZoom);
+	$("#map_canvas").height($(document.body).height() - 100 - $("#XX").height());
 	$('#map_canvas').gmap('refresh');
 }
 
