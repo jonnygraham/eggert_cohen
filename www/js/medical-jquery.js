@@ -137,6 +137,12 @@ function fetchCard(passportNumber) {
 	);
 }
 
+function handleOpenURL(url) {
+  setTimeout(function() {
+    alert("received url: " + url);
+  }, 0);
+}
+
 function whenReady() {
 
 	// For ios7 the statusbar overlays the menu by default
