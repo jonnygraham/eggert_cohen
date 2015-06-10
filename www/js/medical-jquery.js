@@ -88,6 +88,55 @@ function getMedicalCenters(url) {
 var defaultZoom = 16;
 var map;
 
+function populateMyCard(card) {
+	if (card !== null) {
+		$("#myCardName").html(card.firstname +" "+card.lastname);
+		$("#myCardPassport").html(card.passport);
+		$("#myCardPolicyNumber").html(card.policynumber);
+		$("#myCardPolicyNumberExtension").html(card.policynumberextension);
+		$("#myCardBusCode").html(card.buscode);
+		$("#myCardOperator").html(card.operator);
+	}
+};
+function storeCard(card) {
+	localStorage.setItem("cardDetails",JSON.stringify(card));
+}
+
+function loadCard() {
+	var stringifiedCard = localStorage.getItem("cardDetails");
+	if (stringifiedCard === null) return null;
+	var card = null;
+	try{
+        card = JSON.parse(stringifiedCard);
+    }catch(e){
+        localStorage.setItem("cardDetails",null);
+    }
+	return card;
+}
+
+function fetchCard(passportNumber) {
+	var cleansedPassportNumber = passportNumber.replace(/\D/g,''); // numbers only
+	cleansedPassportNumber ='49201862'; // TODO : Remove!
+	var url = 'https://www.ctas.co.il/card/?id=16575&code='+cleansedPassportNumber;
+	console.log(url);
+	$.getJSON(url,
+		function (cardData) {
+			if (cardData.error) {
+				alert(cardData.error);
+			} else {
+				storeCard(cardData);
+				populateMyCard(cardData);
+			}
+			$("#popupCardFind").popup('close');
+			
+		} )
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			alert("Unable to reach server to find your card. Please check your connection to the internet or try again later.");
+			$("#popupCardFind").popup('close');
+		}
+	);
+}
+
 function whenReady() {
 
 	// For ios7 the statusbar overlays the menu by default
@@ -105,47 +154,32 @@ function whenReady() {
 		$("#centerTypeTitle").html(centerType)
 		$('#areaSelector').trigger('change');
 	});
-	function populateMyCard(card) {
-		if (card !== null) {
-			$("#myCardName").html(card.firstname +" "+card.lastname);
-			$("#myCardPassport").html(card.passport);
-			$("#myCardPolicyNumber").html(card.policynumber);
-			$("#myCardPolicyNumberExtension").html(card.policynumberextension);
-			$("#myCardBusCode").html(card.buscode);
-			$("#myCardOperator").html(card.operator);
-		}
-	};
+	
+
+	
+
 	$("#myCard").on("pageshow", function onPageShow(e,data) {
-		var card = localStorage.getItem("cardDetails");
+		var card = loadCard();
 		populateMyCard(card);
+		if (card !== null) {
+			$('#myCardRefreshButton').removeClass('ui-disabled');
+		}
+		$("#myCardRefreshButton").on('click', function() {
+			var card = loadCard();
+			if (card !== null) {
+				fetchCard(card.passport);
+			} else {
+				alert("Unable to refresh.");
+			}
+			return false;
+		});
+		
 	});
 	$("#popupCardFind").on("popupafteropen", function onPageShow(e,data) {
-		var card = localStorage.getItem("cardDetails");
-		// pre-populate form with currently known passport number
-		if (card !== null && card.passport !== null) {
-			$("#passportNumber").html(card.passport);
-		}
-		
         $("#myCardFindButton").on('click', function() { // catch the form's submit event
-            if($('#passportNumber').val().length > 0){
-				
-				var url = 'https://www.ctas.co.il/card/?id=16575&code=49201862';
-			$.getJSON(url,
-					function (cardData) {
-						if (cardData.error) {
-							alert(cardData.error);
-						} else {
-							localStorage.setItem("cardDetails",cardData)
-							populateMyCard(cardData);
-						}
-						$("#popupCardFind").popup('close');
-						
-					} )
-					.fail(function(jqXHR, textStatus, errorThrown) {
-						alert("Unable to reach server to find your card. Please check your connection to the internet or try again later.");
-						$("#popupCardFind").popup('close');
-					});
-		
+		    var passportNumber = $('#passportNumber').val();
+            if(passportNumber.length > 0){
+				fetchCard(passportNumber);
             } else {
                 alert('Please enter your passport number');
             }           

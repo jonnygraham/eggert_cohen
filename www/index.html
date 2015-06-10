@@ -127,7 +127,9 @@
 			</ul>
 			</div>
 			<div data-role="ui-bar" style="padding-top:20px;">
-			<a href="#popupCardFind" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="search" data-theme="a" data-transition="pop">Find/Refresh</a>
+			<a href="#popupCardFind" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="search" data-theme="a" data-transition="pop">Find</a>
+			<a id="myCardRefreshButton" data-role="button" class="ui-disabled" data-inline="true" data-icon="refresh" data-theme="a" >Refresh</a>
+			
 			</div>
 		</div>
 <!--		https://www.ctas.co.il/card/?id=16575&code=49201862
@@ -141,7 +143,7 @@ json returned:
 	<form>
 		<div style="padding:10px 20px;">
 		  <label for="passportNumber">Passport Number:</label>
-		  <input type="text" name="passportNumber" id="passportNumber" value="" placeholder="passport number" data-theme="a">
+		  <input type="text" name="passportNumber" id="passportNumber" value="" placeholder="Enter passport number" data-theme="a">
 		  <button type="submit" data-theme="b" data-icon="check" id="myCardFindButton">Find my card</button>
 		</div>
 	</form>
