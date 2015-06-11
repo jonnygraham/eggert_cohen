@@ -1,6 +1,19 @@
+<!DOCTYPE html>
 <html>
-Will open app...
-	<script>
-		setTimeout(function() { window.location("egertcohen_signup://a=99;b=55");alert("did it");},5000);
-	</script>
+    <body>
+	Will open app in 5s...
+        <script type="text/javascript">
+            window.onload = function() {
+                // Deep link to your app goes here
+//                document.getElementById("l").src = "egertcohen_signup://a=99;b=55";
+
+                setTimeout(function() {
+                    // Link to the App Store should go here -- only fires if deep link fails                
+                    document.getElementById("l").src = "egertcohen_signup://a=99;b=55";
+                }, 5000);
+            };
+        </script>
+        <iframe id="l" width="1" height="1" style="visibility:hidden"></iframe>
+    </body>
 </html>
+
