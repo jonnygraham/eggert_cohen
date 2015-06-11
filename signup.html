@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html>
     <body>
-	Will open app in 5s...
+	Will open app in 5secs...
         <script type="text/javascript">
             window.onload = function() {
-                // Deep link to your app goes here
-//                document.getElementById("l").src = "egertcohen_signup://a=99;b=55";
+		alerton("load");
 
                 setTimeout(function() {
-                    // Link to the App Store should go here -- only fires if deep link fails 
-			alert("ok")               ;
+			alert("ok");
                     document.getElementById("l").src = "egertcohen_signup://a=99;b=55";
 			alert("done");
                 }, 5000);
