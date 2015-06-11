@@ -96,6 +96,8 @@ function populateMyCard(card) {
 		$("#myCardPolicyNumberExtension").html(card.policynumberextension);
 		$("#myCardBusCode").html(card.buscode);
 		$("#myCardOperator").html(card.operator);
+		
+		$('#myCardRefreshButton').removeClass('ui-disabled');
 	}
 };
 function storeCard(card) {
@@ -128,7 +130,6 @@ function fetchCard(passportNumber) {
 				populateMyCard(cardData);
 			}
 			$("#popupCardFind").popup('close');
-			
 		} )
 		.fail(function(jqXHR, textStatus, errorThrown) {
 			alert("Unable to reach server to find your card. Please check your connection to the internet or try again later.");
@@ -167,9 +168,7 @@ function whenReady() {
 	$("#myCard").on("pageshow", function onPageShow(e,data) {
 		var card = loadCard();
 		populateMyCard(card);
-		if (card !== null) {
-			$('#myCardRefreshButton').removeClass('ui-disabled');
-		}
+
 		$("#myCardRefreshButton").on('click', function() {
 			var card = loadCard();
 			if (card !== null) {
