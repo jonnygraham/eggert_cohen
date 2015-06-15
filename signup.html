@@ -1,19 +1,48 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>URL Schemes</title>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    </head>
     <body>
-	Will open app in 5secs...
-        <script type="text/javascript">
-            window.onload = function() {
-		alert("onload");
+ 
+        <script>
+		var paramId = "";
+		var paramCode = "";
+		
+		var url = window.location.href;
+		var matches = url.match(/id=([0-9]*)/)
+		if (matches !== null) paramId = matches[1];
 
-                setTimeout(function() {
-			alert("ok");
-                    document.getElementById("l").src = "egertcohen_signup://abc.com?a=99;b=55";
-			alert("done");
-                }, 5000);
-            };
-        </script>
-        <iframe id="l" width="1" height="1" style="visibility:hidden"></iframe>
+		matches = url.match(/code=([0-9]*)/);
+		if (matches !== null) paramCode = matches[1];
+		
+		var IS_IPAD = navigator.userAgent.match(/iPad/i) != null,
+			IS_IPHONE = !IS_IPAD && ((navigator.userAgent.match(/iPhone/i) != null) || (navigator.userAgent.match(/iPod/i) != null)),
+			IS_IOS = IS_IPAD || IS_IPHONE,
+			IS_ANDROID = !IS_IOS && navigator.userAgent.match(/android/i) != null,
+			IS_MOBILE = IS_IOS || IS_ANDROID;
+        function open() {
+			if (IS_IOS) {
+				window.location = "egertcohen://signup?id="+paramId+"&code="+paramCode;
+			
+				setTimeout(function() {
+			
+					// If the user is still here, open the App Store
+					if (!document.webkitHidden) {
+			
+						// Replace the Apple ID following '/id'
+						window.location = 'http://itunes.apple.com/app/idXXXXXXXXXXXX';
+					}
+				}, 25);
+			
+			} else if (IS_ANDROID) {
+			
+				// Instead of using the actual URL scheme, use 'intent://' for better UX
+				window.location = 'intent://'+signup?id="+paramId+"&code="+paramCode+'#Intent;package=il.co.egertcohen.medical-services-locator;scheme=egertcohen;launchFlags=268435456;end;';
+			}
+		}
+		</script>
     </body>
 </html>
-
