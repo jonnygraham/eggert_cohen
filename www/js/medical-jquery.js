@@ -92,10 +92,13 @@ function populateMyCard(card) {
 	if (card !== null) {
 		$("#myCardName").html(card.firstname +" "+card.lastname);
 		$("#myCardPassport").html(card.passport);
-		$("#myCardPolicyNumber").html(card.policynumber);
-		$("#myCardPolicyNumberExtension").html(card.policynumberextension);
+		var policyNumber = card.policynumber;
+		if (card.policynumberextension !== "") policyNumber += "("+card.policynumberextension+")";
+		$("#myCardPolicyNumber").html(policyNumber);
 		$("#myCardBusCode").html(card.buscode);
 		$("#myCardOperator").html(card.operator);
+		var cardDates = "12 Jun 2015 - 14 Jul 2015";
+		$("#myCardDates").html(cardDates);
 		
 		$('#myCardRefreshButton').removeClass('ui-disabled');
 	}
@@ -116,10 +119,21 @@ function loadCard() {
 	return card;
 }
 
-function fetchCard(passportNumber) {
-	var cleansedPassportNumber = passportNumber.replace(/\D/g,''); // numbers only
-	cleansedPassportNumber ='49201862'; // TODO : Remove!
-	var url = 'https://www.ctas.co.il/card/?id=16575&code='+cleansedPassportNumber;
+function removeNonNums(str) {
+	return str.replace(/\D/g,''); 
+}
+function fetchCardBySignup(id, code) {
+	var url = 'https://www.ctas.co.il/card/?id='+removeNonNums(id)+'&code='+removeNonNums(code);
+	fetchCard(url,"Signup completed! You can view your policy information by tapping the 'My Card' button.");
+}
+function fetchCardByPassport(passportNumber) {
+	var cleansedPassportNumber = removeNonNums(passportNumber);
+	cleansedPassportNumber ='Qk268174'; // TODO : Remove!
+	var url = 'https://www.ctas.co.il/card/?pass='+cleansedPassportNumber;
+	fetchCard(url,"");
+}
+
+function fetchCard(url, successMsg) {
 	console.log(url);
 	$.getJSON(url,
 		function (cardData) {
@@ -128,19 +142,28 @@ function fetchCard(passportNumber) {
 			} else {
 				storeCard(cardData);
 				populateMyCard(cardData);
+				if (successMsg !== "") {
+					alert(successMsg);
+				}
 			}
-			$("#popupCardFind").popup('close');
 		} )
 		.fail(function(jqXHR, textStatus, errorThrown) {
 			alert("Unable to reach server to find your card. Please check your connection to the internet or try again later.");
-			$("#popupCardFind").popup('close');
 		}
 	);
 }
-
 function handleOpenURL(url) {
   setTimeout(function() {
-    alert("received url: " + url);
+	var paramId = "";
+	var paramCode = "";
+	
+	var url = window.location.href;
+	var matches = url.match(/id=([0-9]*)/)
+	if (matches !== null) paramId = matches[1];
+
+	matches = url.match(/code=([0-9]*)/);
+	if (matches !== null) paramCode = matches[1];
+	fetchCardBySignup(paramId, paramCode);
   }, 0);
 }
 
@@ -172,7 +195,7 @@ function whenReady() {
 		$("#myCardRefreshButton").on('click', function() {
 			var card = loadCard();
 			if (card !== null) {
-				fetchCard(card.passport);
+				fetchCardByPassport(card.passport);
 			} else {
 				alert("Unable to refresh.");
 			}
@@ -184,7 +207,8 @@ function whenReady() {
         $("#myCardFindButton").on('click', function() { // catch the form's submit event
 		    var passportNumber = $('#passportNumber').val();
             if(passportNumber.length > 0){
-				fetchCard(passportNumber);
+				fetchCardByPassport(passportNumber);
+				$("#popupCardFind").popup('close');
             } else {
                 alert('Please enter your passport number');
             }           
@@ -377,6 +401,7 @@ function handleCurrentPosition(position) {
 		   // Application Constructor
 		   initialize: function(callback) {
 		      console.log("initialize called");
+			  $.ajaxSetup({ cache: false });
 			  this.callback = callback;
 			  var browser = document.URL.match(/^https?:/);
 			  if(browser) {
