@@ -124,6 +124,7 @@ function removeNonNums(str) {
 }
 function fetchCardBySignup(id, code) {
 	var url = 'https://www.ctas.co.il/card/?id='+removeNonNums(id)+'&code='+removeNonNums(code);
+	alert("Signing up..."+id+","+code+". URL: "+url);
 	fetchCard(url,"Signup completed! You can view your policy information by tapping the 'My Card' button.");
 }
 function fetchCardByPassport(passportNumber) {
