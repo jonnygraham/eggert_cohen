@@ -3,6 +3,7 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
+		xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "il.egertcohen"
         version   = "1.1.0">
 
@@ -64,6 +65,9 @@
       <param name="URL_SCHEME" value="egertcohen" />
     </gap:plugin>
 
+	<gap:config-file platform="android" parent="/manifest/application">
+	  <activity android:launchMode="singleTask"/>
+	</gap:config-file>
     <!-- Define app icon for each platform. -->
 	<icon src="icons/android/drawable-ldpi/ic_launcher.png" gap:platform="android" gap:density="ldpi" />
 	<icon src="icons/android/drawable-mdpi/ic_launcher.png" gap:platform="android" gap:density="mdpi" />
