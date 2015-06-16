@@ -159,6 +159,7 @@ function handleOpenURL(url) {
 	var paramCode = "";
 	
 	var url = window.location.href;
+	alert(url);
 	var matches = url.match(/id=([0-9]*)/)
 	if (matches !== null) paramId = matches[1];
 
