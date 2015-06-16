@@ -39,11 +39,12 @@
 			
 			} else if (IS_ANDROID) {
 			
-				window.location = "egertcohen://signup?id="+paramId+"&code="+paramCode;
+				//window.location = "egertcohen://signup?id="+paramId+"&code="+paramCode;
 				// Instead of using the actual URL scheme, use 'intent://' for better UX
-				//window.location = "intent://signup?id="+paramId+"&code="+paramCode+"#Intent;package=il.co.egertcohen.medical-services-locator;scheme=egertcohen;launchFlags=268435456;end;";
+				window.location = "intent://signup?id="+paramId+"&code="+paramCode+"#Intent;package=il.co.egertcohen.medical-services-locator;scheme=egertcohen;end;";
 			}
 		}
+		open();
 		</script>
     </body>
 </html>
