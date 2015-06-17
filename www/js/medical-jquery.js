@@ -145,7 +145,7 @@ function fetchCardByPassport(passportNumber) {
 }
 
 function fetchCard(url, successMsg) {
-	console.log(url);
+	$.mobile.loading( 'show', {text : "Please wait. Looking up information..." ,textVisible : true} );
 	$.getJSON(url,
 		function (cardData) {
 			if (cardData.error) {
@@ -156,10 +156,12 @@ function fetchCard(url, successMsg) {
 				if (successMsg !== "") {
 					alert(successMsg);
 				}
+				$.mobile.loading( 'hide' );
 			}
 		} )
 		.fail(function(jqXHR, textStatus, errorThrown) {
 			alert("Unable to reach server to find your card. Please check your connection to the internet or try again later.");
+			$.mobile.loading( 'hide' );
 		}
 	);
 }
