@@ -97,8 +97,8 @@ function populateMyCard(card) {
 		if (card.passport !== null) passport = card.passport;
 		var policyNumber = card.policynumber;
 		if (card.policynumberextension !== null && card.policynumberextension !== "") policyNumber += "("+card.policynumberextension+")";
-		var busCode = "";
-		if (card.busCode !== null) busCode = card.busCode;
+		var buscode = "";
+		if (card.buscode !== null) buscode = card.buscode;
 		var operator = "";
 		if (card.operator !== null) operator = card.operator;
 		var cardDates = "12 Jun 2015 - 14 Jul 2015";
