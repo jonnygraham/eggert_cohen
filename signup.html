@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>URL Schemes</title>
+        <title>Egert And Cohen Signup</title>
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     </head>
     <body>
- 
+ 		<div id="msg">Redirecting you to our app...</div>
         <script>
 		var paramId = "";
 		var paramCode = "";
@@ -23,19 +23,15 @@
 			IS_IOS = IS_IPAD || IS_IPHONE,
 			IS_ANDROID = !IS_IOS && navigator.userAgent.match(/android/i) != null,
 			IS_MOBILE = IS_IOS || IS_ANDROID;
-        function open() {
+        function doSignup() {
 			if (IS_IOS) {
 				window.location = "egertcohen://signup?id="+paramId+"&code="+paramCode;
-			
 				setTimeout(function() {
-			
 					// If the user is still here, open the App Store
 					if (!document.webkitHidden) {
-			
-						// Replace the Apple ID following '/id'
 						window.location = 'http://itunes.apple.com/app/idXXXXXXXXXXXX';
 					}
-				}, 25);
+				}, 100);
 			
 			} else if (IS_ANDROID) {
 			
@@ -44,7 +40,11 @@
 				window.location = "intent://signup?id="+paramId+"&code="+paramCode+"#Intent;package=il.egertcohen;scheme=egertcohen;end;";
 			}
 		}
-		open();
+		if (IS_MOBILE) {
+			doSignup();
+		} else {
+			  document.getElementById("msg").html="You don't appear to be using an Android or an iPhone. Please try again from your mobile device!";
+		}
 		</script>
     </body>
 </html>
