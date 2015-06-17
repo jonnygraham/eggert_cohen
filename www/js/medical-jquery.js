@@ -90,14 +90,24 @@ var map;
 
 function populateMyCard(card) {
 	if (card !== null) {
-		$("#myCardName").html(card.firstname +" "+card.lastname);
-		$("#myCardPassport").html(card.passport);
+		var name = "";
+		if (card.firstname !== null) name = card.firstname;
+		if (card.lastname !== null) name += " "+card.lastname;
+		var passport = "";
+		if (card.passport !== null) passport = card.passport;
 		var policyNumber = card.policynumber;
-		if (card.policynumberextension !== "") policyNumber += "("+card.policynumberextension+")";
-		$("#myCardPolicyNumber").html(policyNumber);
-		$("#myCardBusCode").html(card.buscode);
-		$("#myCardOperator").html(card.operator);
+		if (card.policynumberextension !== null && card.policynumberextension !== "") policyNumber += "("+card.policynumberextension+")";
+		var busCode = "";
+		if (card.busCode !== null) busCode = card.busCode;
+		var operator = "";
+		if (card.operator !== null) operator = card.operator;
 		var cardDates = "12 Jun 2015 - 14 Jul 2015";
+		
+		$("#myCardName").html(name);
+		$("#myCardPassport").html(passport);
+		$("#myCardPolicyNumber").html(policyNumber);
+		$("#myCardBusCode").html(buscode);
+		$("#myCardOperator").html(operator);
 		$("#myCardDates").html(cardDates);
 		
 		$('#myCardRefreshButton').removeClass('ui-disabled');
