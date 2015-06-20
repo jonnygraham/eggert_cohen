@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	</head>
 	<body>
-		<div id="msg">Redirecting you to our app...</div>
+		<div id="msg">Redirecting you to our app... If you don't get redirected automatically <a href="javascript:doSignup()">click here</a>.</div>
 		<script>
 		var paramId = "";
 		var paramCode = "";
@@ -29,7 +29,7 @@
 				setTimeout(function() {
 					// If the user is still here, open the App Store
 					if (!document.webkitHidden) {
-						window.location = 'http://itunes.apple.com/app/idXXXXXXXXXXXX';
+						window.location = 'http://itunes.apple.com/app/id853158472';
 					}
 				}, 100);
 			
@@ -40,7 +40,9 @@
 			}
 		}
 		if (IS_MOBILE) {
-			doSignup();
+			setTimeout(function() {
+			  doSignup();
+			  }, 50);
 		} else {
 			  document.getElementById("msg").textContent="You don't appear to be using an Android or an iPhone. Please try again from your mobile device!";
 		}
