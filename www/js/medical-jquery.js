@@ -441,7 +441,7 @@ function handleCurrentPosition(position) {
 			  if(browser) {
 				 console.log("Is web.");
 				 //In case of web we ignore PG but resolve the Deferred Object to trigger initialization
-			 pgReady.resolve();
+				pgReady.resolve();
 			  }
 			  else {
 				 console.log("Is not web.");
