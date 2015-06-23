@@ -33,7 +33,7 @@
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version"           value="3.6.3" />          <!-- all: current version of PhoneGap -->
+	<preference name='phonegap-version' value='cli-5.1.1' />
     <preference name="orientation"                value="portrait" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="handset" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="false" />           <!-- all: hides the status bar at the top of the screen -->
@@ -120,7 +120,7 @@
 	<access origin="https://googleusercontent.com"/>
 	<access origin="https://www.google.com" browserOnly="true"/>
 	
-	<access origin="http://waze.to" browserOnly="true"/>
+	<access origin="http://waze.to"/>
 	
 	<access origin="http://egertcohen.co.il" subdomains="true"/>
 	<access origin="https://www.ctas.co.il" subdomains="true"/>
