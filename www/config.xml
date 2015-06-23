@@ -110,17 +110,18 @@
 	<access origin="http://*.gstatic.com"/>
 	<access origin="http://*.googleapis.com"/>
 	<access origin="http://*.googleusercontent.com"/>
-	<access origin="http://www.google.com"/>
 	<access origin="https://maps.google.com"/>
 	<access origin="https://*.gstatic.com"/>
 	<access origin="https://*.googleapis.com"/>
 	<access origin="https://*.googleusercontent.com"/>
-		<access origin="https://gstatic.com"/>
+	<access origin="https://gstatic.com"/>
 	<access origin="https://googleapis.com"/>
 	<access origin="https://googleusercontent.com"/>
-	<access origin="https://www.google.com"/>
 	
-	<access origin="http://waze.to"/>
+	<access origin="http://www.google.com" launch-external="yes"/>
+	<access origin="https://www.google.com" launch-external="yes"/>
+	
+	<access origin="http://waze.to" launch-external="yes"/>
 	
 	<access origin="http://egertcohen.co.il" subdomains="true"/>
 	<access origin="https://www.ctas.co.il" subdomains="true"/>
