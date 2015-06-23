@@ -89,19 +89,35 @@ var defaultZoom = 16;
 var map;
 
 function populateMyCard(card) {
-	if (card !== null) {
+	if (card != null) {
 		var name = "";
-		if (card.firstname !== null) name = card.firstname;
-		if (card.lastname !== null) name += " "+card.lastname;
+		if (card.firstname != null) name = card.firstname;
+		if (card.lastname != null) name += " "+card.lastname;
 		var passport = "";
-		if (card.passport !== null) passport = card.passport;
-		var policyNumber = card.policynumber;
-		if (card.policynumberextension !== null && card.policynumberextension !== "") policyNumber += "("+card.policynumberextension+")";
+		if (card.passport != null) passport = card.passport;
+		var policyNumber = "";
+		if (card.policynumber != null && card.policynumber !== "") {
+			policyNumber = card.policynumber;
+		}
+		if (card.policynumberextension != null && card.policynumberextension !== "") policyNumber += "("+card.policynumberextension+")";
+		if (policyNumber === "") {
+			// When they first sign up there's not a real policy number yet
+			// so use the id
+			if (card.id != null) {
+				policyNumber = card.id;
+			}
+		}
 		var buscode = "";
-		if (card.buscode !== null) buscode = card.buscode;
+		if (card.buscode != null) buscode = card.buscode;
 		var operator = "";
-		if (card.operator !== null) operator = card.operator;
-		var cardDates = "12 Jun 2015 - 14 Jul 2015";
+		if (card.operator != null) operator = card.operator;
+		var cardDates = "";
+		if (card.policystartdate != null && card.policystartdate !== "") {
+			cardDates += formatDate(card.policystartdate);
+			if (card.policyenddate != null && card.policyenddate !== "") {
+				cardDates += " - "+formatDate(card.policyenddate);
+			}
+		}
 		
 		$("#myCardName").html(name);
 		$("#myCardPassport").html(passport);
@@ -113,6 +129,20 @@ function populateMyCard(card) {
 		$('#myCardRefreshButton').removeClass('ui-disabled');
 	}
 };
+
+function monthToStr(month) {
+	var monthStrings = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+	return monthStrings[Number(month)-1];
+}
+function formatDate(dateStr) {
+	var re = /(\d{4})-(\d{2})-(\d{2})/;
+	var dateParts = re.exec(dateStr);
+	var year = dateParts[1];
+	var month = dateParts[2];
+	var day = dateParts[3];
+	return day+" "+monthToStr(month)+" "+year;
+}
+
 function storeCard(card) {
 	localStorage.setItem("cardDetails",JSON.stringify(card));
 }
@@ -132,14 +162,16 @@ function loadCard() {
 function removeNonNums(str) {
 	return str.replace(/\D/g,''); 
 }
+function removeNonAlpanum(str) {
+	return str.replace(/\W/g,''); 
+}
 function fetchCardBySignup(id, code) {
 	var url = 'https://www.ctas.co.il/card/?id='+removeNonNums(id)+'&code='+removeNonNums(code);
 	alert("Signing up..."+id+","+code+". URL: "+url);
 	fetchCard(url,"Signup completed! You can view your policy information by tapping the 'My Card' button.");
 }
 function fetchCardByPassport(passportNumber) {
-	var cleansedPassportNumber = removeNonNums(passportNumber);
-	cleansedPassportNumber ='Qk268174'; // TODO : Remove!
+	var cleansedPassportNumber = removeNonAlpanum(passportNumber);
 	var url = 'https://www.ctas.co.il/card/?pass='+cleansedPassportNumber;
 	fetchCard(url,"");
 }
@@ -196,10 +228,6 @@ function whenReady() {
 		$("#centerTypeTitle").html(centerType)
 		$('#areaSelector').trigger('change');
 	});
-	
-
-	
-
 	$("#myCard").on("pageshow", function onPageShow(e,data) {
 		var card = loadCard();
 		populateMyCard(card);
@@ -226,9 +254,6 @@ function whenReady() {
             }           
             return false; // cancel original event to prevent form submitting
         });    
-
-		
-		
 	});
 
 	$("#areaSelector").change(function () {
@@ -251,10 +276,7 @@ function whenReady() {
 						});
 					}}); 
 }
-/*$(document).ready(function() {
-	whenReady();
-});
-*/
+
 function parsePhoneNumber(phoneNum) {
 	return phoneNum.replace(/\D/g,'')
 }
