@@ -13,7 +13,7 @@
 	<div data-role="header">
 		<h1 class="ui-title" role="heading">Egert & Cohen</h1>
 		<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">		
-			<a href="#myCard" data-role="button" data-icon="user">My Card</a>
+			<a href="#myCard" data-role="button" data-icon="user">Me</a>
 		</div>
 	</div>
 	<div data-role="content">
@@ -57,8 +57,8 @@
 	<div data-role="header">
 		<h1 class="ui-title" role="heading">Egert & Cohen</h1>
 		<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-			<a href="#info" data-role="button" data-icon="info" >Info</a>
-			<a href="#myCard" data-role="button" data-icon="user">My Card</a>
+			<a href="#info" data-role="button" data-icon="info" data-iconpos="notext">Info</a>
+			<a href="#myCard" data-role="button" data-icon="user">Me</a>
 		</div>
 	</div>
 	<div data-role="content">
@@ -67,13 +67,13 @@
 	</div>
 </div>
 
-<div data-role="page" id="chooseCenter" data-add-back-btn="true">
+<div data-role="page" id="chooseCenter" data-add-back-btn="true" >
 	<div data-role="header">
 		<h1 class="ui-title" role="heading"><span id="centerTypeTitle"/></h1>
 		<!--<a data-role="button" data-rel="back" data-icon="arrow-l">Back</a>-->
 		<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-			<a href="#info" data-role="button" data-icon="info" >Info</a>
-			<a href="#myCard" data-role="button" data-icon="user">My Card</a>
+			<a href="#info" data-role="button" data-icon="info" data-iconpos="notext">Info</a>
+			<a href="#myCard" data-role="button" data-icon="user">Me</a>
 		</div>
 	</div>
 	<div data-role="content">
@@ -96,7 +96,7 @@
 		<!--<a data-role="button" data-rel="back" data-icon="arrow-l">Back</a>-->
 		<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 			<a href="#info" data-role="button" data-icon="info" >Info</a>
-			<a href="#myCard" data-role="button" data-icon="user">My Card</a>
+			<a href="#myCard" data-role="button" data-icon="user">Me</a>
 		</div>
 	</div>
 		<div data-role="content" >
@@ -130,14 +130,8 @@
 			<div data-role="ui-bar" style="padding-top:20px;">
 			<a href="#popupCardFind" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="search" data-theme="a" data-transition="pop">Find</a>
 			<a id="myCardRefreshButton" data-role="button" class="ui-disabled" data-inline="true" data-icon="refresh" data-theme="a" >Refresh</a>
-			
 			</div>
 		</div>
-<!--		https://www.ctas.co.il/card/?id=16575&code=49201862
-
-json returned:
-{"firstname":"Chloe","lastname":"Cohen","passport":"452462064","policynumber":null,"policynumberextension":null,"buscode":"YA-32-616","operator":"Yael Adventures"} 
--->
 	</div>
 
 <div data-role="popup" id="popupCardFind" data-theme="a" class="ui-corner-all">
@@ -155,7 +149,7 @@ json returned:
 	<script src="js/jquery-1.9.1.min.js"></script>
 	<script src="js/medical-jquery.js"></script>
 	<script src="js/query.ui.map.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyD51NW7mIAu-vSe0y8rHM8_BkQ08FlYR7s&sensor=false"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyD51NW7mIAu-vSe0y8rHM8_BkQ08FlYR7s&sensor=false"></script>
 	<script>
 
 	app.initialize(function() {
@@ -167,9 +161,5 @@ json returned:
 	<script src="js/jquery.mobile-1.3.2.min.js"></script>
 	<script src="phonegap.js"></script>
 	<!--<script src="http://debug.phonegap.com/target/target-script-min.js#egert_cohen_debug"></script>-->
-	
-
-<!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script> -->
-
 </body>
 </html>
