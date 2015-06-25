@@ -33,13 +33,6 @@ function updateMedicalCentersDistances(pos) {
 
 }
 
-document.addEventListener('deviceready', onDeviceReady, false);
-function onDeviceReady() {
-	console.log("Device Ready");
-	navigator.splashscreen.hide();
-	document.addEventListener("resume", onResume, false);
-}
-
 function onResume() {
 	getCurrentLocation();
 }
@@ -220,9 +213,9 @@ function whenReady() {
 
 	// For ios7 the statusbar overlays the menu by default
 	//if(typeof StatusBar !== 'undefined') StatusBar.overlaysWebView(false);
-	
+	document.addEventListener("resume", onResume, false);
 	FastClick.attach(document.body);
-	console.log("Fetching medical data");
+	navigator.splashscreen.hide();
 	getMedicalCenters("http://egertcohen.co.il/medicalCentersData.json")
 	$("#centerDetails").on("pageshow", function onPageShow(e,data) {
 		displayMedicalCenterById(localStorage.getItem("centerId"));
@@ -438,7 +431,6 @@ function handleCurrentPosition(position) {
 		   // Application Constructor
 		   initialize: function(callback) {
 		      console.log("initialize called");
-			  $.ajaxSetup({ cache: false });
 			  this.callback = callback;
 			  var browser = document.URL.match(/^https?:/);
 			  if(browser) {
