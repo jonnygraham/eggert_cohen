@@ -334,7 +334,6 @@ function populateAreaSelector(areas,id) {
 
 
 function displayMedicalCenterById(id) {
-	console.log(id)
 	var medicalCenters = $.grep(medicalCentersData, function(obj,idx){ 
 		return (obj.id === id)
 	});
@@ -344,7 +343,6 @@ function displayMedicalCenterById(id) {
 	}
 	var medicalCenter = medicalCenters[0];
 	displayMedicalCenterDetails(medicalCenter)
-	//$("#centerName").html(id)
 			
 }
 function displayMedicalCenterDetails(obj) {
@@ -367,30 +365,31 @@ function displayMedicalCenterDetails(obj) {
 	$.each(obj.phoneNumbers, function(idx,phoneNumber) {
 		phoneNumbers +="<p><a href='tel:"+parsePhoneNumber(phoneNumber.number)+"'>"+phoneNumber.number+"</a></p>"
 	});
-	$("#centerPhoneNumbers").html(phoneNumbers)
+	$("#centerPhoneNumbers").html(phoneNumbers);
+	
 	var openingHours = "<table class='table-stripe rounded-corners'><tbody>"
 	$.each(obj.openingHours, function(idx,line) {
 		openingHours +="<tr>";
-		var d_h = line.split(": ")
+		var d_h = line.split(": ");
 		if (d_h[0] === "") {
 			openingHours += "<td>Not known</td>";
 		}
 		else {
-			openingHours +="<td>"+d_h[0]+"</td>"
-			if (d_h.length > 1) openingHours +="<td>"+d_h[1]+"</td>"
+			openingHours +="<td>"+d_h[0]+"</td>";
+			if (d_h.length > 1) openingHours +="<td>"+d_h[1]+"</td>";
 		}
-		openingHours +="</tr>"
+		openingHours +="</tr>";
 	});
 	openingHours += "</tbody></table>";
-	$("#centerOpeningHours").html(openingHours)
+	$("#centerOpeningHours").html(openingHours);
 	showMedicalCenterOnMap(obj);
 }
 
 function getDistance(centerId) {
 	var medicalCenters = $.grep(medicalCentersDistances, function(obj,idx){ 
-		return (obj.id === centerId)
+		return (obj.id === centerId);
 	});
-	if (medicalCenters.length == 1) return medicalCenters[0].distance
+	if (medicalCenters.length == 1) return medicalCenters[0].distance;
 	return null;
 }
 
