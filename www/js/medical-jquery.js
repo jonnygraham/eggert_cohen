@@ -167,9 +167,10 @@ function fetchCardBySignup(id, code) {
 	var url = 'https://www.ctas.co.il/card/?id='+removeNonNums(id)+'&code='+removeNonNums(code);
 	fetchCard(url,"Signup completed! You can view your policy information by tapping the 'Me' button.");
 }
-function fetchCardByPassport(passportNumber) {
+function fetchCardByPassport(passportNumber,isRefresh) {
 	var cleansedPassportNumber = removeNonAlpanum(passportNumber);
-	var url = 'https://www.ctas.co.il/card/?pass='+cleansedPassportNumber;
+	var refreshParam = "&refresh="+isRefresh;
+	var url = 'https://www.ctas.co.il/card/?pass='+cleansedPassportNumber+refreshParam;
 	fetchCard(url,"");
 }
 
@@ -232,7 +233,7 @@ function whenReady() {
 		$("#myCardRefreshButton").on('click', function() {
 			var card = loadCard();
 			if (card !== null) {
-				fetchCardByPassport(card.passport);
+				fetchCardByPassport(card.passport,true);
 			} else {
 				alert("Unable to refresh.");
 			}
@@ -244,7 +245,7 @@ function whenReady() {
         $("#myCardFindButton").on('click', function() { // catch the form's submit event
 		    var passportNumber = $('#passportNumber').val();
             if(passportNumber.length > 0){
-				fetchCardByPassport(passportNumber);
+				fetchCardByPassport(passportNumber,false);
 				$("#popupCardFind").popup('close');
             } else {
                 alert('Please enter your passport number');
