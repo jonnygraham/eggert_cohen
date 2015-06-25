@@ -307,7 +307,6 @@ function displayMedicalCenters(maxToDisplay, filterFunction) {
 	$("#centersList").html(str)
 	$("#centersList").listview("refresh")
 	$("#centersList").children("li").on("click", function() {
-		console.log($(this))
 		localStorage.setItem("centerId",$(this).attr("center-id"));
 	});
 }
