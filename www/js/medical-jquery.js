@@ -96,16 +96,14 @@ function populateMyCard(card) {
 		var passport = "";
 		if (card.passport != null) passport = card.passport;
 		var policyNumber = "";
-		if (card.policynumber != null && card.policynumber !== "") {
+		if (card.policynumberextension != null && card.policynumberextension !== "") policyNumber = card.policynumberextension;
+		else if (card.policynumber != null && card.policynumber !== "") {
 			policyNumber = card.policynumber;
 		}
-		if (card.policynumberextension != null && card.policynumberextension !== "") policyNumber += "("+card.policynumberextension+")";
-		if (policyNumber === "") {
-			// When they first sign up there's not a real policy number yet
-			// so use the id
-			if (card.id != null) {
+		// When they first sign up there's not a real policy number yet
+		// so use the id
+		else if (card.id != null) {
 				policyNumber = card.id;
-			}
 		}
 		var buscode = "";
 		if (card.buscode != null) buscode = card.buscode;
