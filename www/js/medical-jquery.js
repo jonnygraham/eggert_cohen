@@ -66,12 +66,13 @@ function getMedicalCenters(url) {
     cache: false,
     url: url,
     dataType: "json",
+	timeout: 10000,
     success: function (data) {
 			medicalCentersData = data;
 			localStorage.setItem("medicalCentersData",medicalCentersData)
 			onDataReady();
 		},
-	fail: function(jqXHR, textStatus, errorThrown) {
+	error: function(jqXHR, textStatus, errorThrown) {
 			medicalCentersData = localStorage.getItem("medicalCentersData");
 			if (medicalCentersData === null) {
 				alert("Unable to load Medical Center data. Please check your connection to the internet.");
@@ -177,6 +178,7 @@ function fetchCard(url, successMsg) {
 		cache: false,
 		url: url,
 		dataType: "json",
+		timeout: 10000,
 		success: function (cardData) {
 			if (cardData.error) {
 				alert(cardData.error);
@@ -186,10 +188,10 @@ function fetchCard(url, successMsg) {
 				if (successMsg !== "") {
 					alert(successMsg);
 				}
-				$.mobile.loading( 'hide' );
 			}
+			$.mobile.loading( 'hide' );
 		},
-		fail: function(jqXHR, textStatus, errorThrown) {
+		error: function(jqXHR, textStatus, errorThrown) {
 			alert("Unable to reach server to find your card. Please check your connection to the internet or try again later.");
 			$.mobile.loading( 'hide' );
 		}
