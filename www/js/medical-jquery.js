@@ -237,29 +237,26 @@ function whenReady() {
 	$("#myCard").on("pageshow", function onPageShow(e,data) {
 		var card = loadCard();
 		populateMyCard(card);
-
-		$("#myCardRefreshButton").on('click', function() {
-			var card = loadCard();
-			if (card !== null) {
-				fetchCardByPassport(card.passport,true);
-			} else {
-				alert("Unable to refresh.");
-			}
-			return false;
-		});
-		
 	});
-	$("#popupCardFind").on("popupafteropen", function onPageShow(e,data) {
-        $("#myCardFindButton").on('click', function() { // catch the form's submit event
-		    var passportNumber = $('#passportNumber').val();
-            if(passportNumber.length > 0){
-				fetchCardByPassport(passportNumber,false);
-				$("#popupCardFind").popup('close');
-            } else {
-                alert('Please enter your passport number');
-            }           
-            return false; // cancel original event to prevent form submitting
-        });    
+	$("#myCardRefreshButton").on('click', function() {
+		var card = loadCard();
+		if (card !== null) {
+			fetchCardByPassport(card.passport,true);
+		} else {
+			alert("Unable to refresh.");
+		}
+		return false;
+	});
+	$("#myCardFindButton").on('click', function() { // catch the form's submit event
+		var passportNumber = $('#passportNumber').val();
+		console.log("fetching "+passportNumber);
+		if(passportNumber.length > 0){
+			fetchCardByPassport(passportNumber,false);
+			$("#popupCardFind").popup('close');
+		} else {
+			alert('Please enter your passport number');
+		}           
+		return false; // cancel original event to prevent form submitting
 	});
 
 	$("#areaSelector").change(function () {
