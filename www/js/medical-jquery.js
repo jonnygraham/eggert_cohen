@@ -69,16 +69,22 @@ function getMedicalCenters(url) {
 	timeout: 10000,
     success: function (data) {
 			medicalCentersData = data;
-			localStorage.setItem("medicalCentersData",medicalCentersData)
+			localStorage.setItem("medicalCentersData",JSON.stringify(medicalCentersData))
 			onDataReady();
 		},
 	error: function(jqXHR, textStatus, errorThrown) {
-			medicalCentersData = localStorage.getItem("medicalCentersData");
-			if (medicalCentersData === null) {
+			var medicalCentersDataStored = localStorage.getItem("medicalCentersData");
+			if (medicalCentersDataStored === null) {
 				alert("Unable to load Medical Center data. Please check your connection to the internet.");
 			}
 			else {
-				onDataReady();
+				try{
+					medicalCentersData = JSON.parse(medicalCentersDataStored);
+					onDataReady();
+				}catch(e){
+					localStorage.setItem("medicalCentersData",null);
+					alert("Unable to load data. Please check your connection to the internet.");
+				}
 			}
 		}
     });
