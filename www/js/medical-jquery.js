@@ -204,17 +204,19 @@ function fetchCard(url, successMsg) {
 	});
 }
 function handleOpenURL(url) {
-  setTimeout(function() {
 	var paramId = "";
 	var paramCode = "";
 
 	var matches = url.match(/id=([0-9]*)/)
-	if (matches !== null) paramId = matches[1];
+	if (matches !== null && matches.length >= 2) paramId = matches[1];
 
 	matches = url.match(/code=([0-9]*)/);
-	if (matches !== null) paramCode = matches[1];
-	fetchCardBySignup(paramId, paramCode);
-  }, 0);
+	if (matches !== null && matches.length >= 2) paramCode = matches[1];
+	if (paramId !== "" && paramCode !== "") {
+		setTimeout(function() {
+			fetchCardBySignup(paramId, paramCode);
+		}, 0);
+	}
 }
 
 function whenReady() {
