@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
 		xmlns:android = "http://schemas.android.com/apk/res/android"
-        id        = "il.egertcohen.medical-services-locator"
+        id        = "il.egertcohen"
         version   = "1.2.0">
 <!-- ios: id="il.egertcohen.medical-services-locator"
      android: id="il.egertcohen"
@@ -20,20 +20,12 @@
     </author>
 
     <!--
-        Enable individual API permissions here.
-        The "device" permission is required for the 'deviceready' event.
-    -->
-    <feature name="http://api.phonegap.com/1.0/device" />
-
-    <!--
         If you do not want any permissions to be added to your app, add the
         following tag to your config.xml; you will still have the INTERNET
         permission on your app, which PhoneGap requires.
     -->
     <preference name="permissions"                value="none"/>
 
-	<feature name="http://api.phonegap.com/1.0/geolocation"/>
-	
     <!-- Customize your app and platform with the preference element. -->
     <preference name="phonegap-version"           value="3.6.3" />          <!-- all: current version of PhoneGap -->
     <preference name="orientation"                value="portrait" />        <!-- all: default means both landscape and portrait are enabled -->
@@ -58,14 +50,14 @@
         <gap:plugin name="Example" />
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
-	<gap:plugin name="com.phonegap.plugin.statusbar" >
+	<plugin name="org.apache.cordova.geolocation" spec="0.3.12" source="pgb" />
+	<plugin name="com.phonegap.plugin.statusbar" source="pgb" spec="1.1.0" >
 		<param name="StatusBarOverlaysWebView" value="false" />
-	</gap:plugin>
-	<gap:plugin name="org.apache.cordova.dialogs">
-	</gap:plugin>
-	<gap:plugin name="nl.x-services.plugins.launchmyapp">
-      <param name="URL_SCHEME" value="egertcohen" />
-    </gap:plugin>
+	</plugin>
+	<plugin name="nl.x-services.plugins.launchmyapp" source="pgb" spec="3.2.0">
+		<param name="URL_SCHEME" value="egertcohen" />
+	</plugin>
+	<plugin name="org.apache.cordova.dialogs" source="pgb" spec="0.3.0" />
 
 	<gap:config-file platform="android" parent="/manifest/application">
 	  <activity android:launchMode="singleTask"/>
