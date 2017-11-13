@@ -51,6 +51,7 @@
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
 
+	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
 <gap:plugin name="cordova-plugin-statusbar" source="npm" version="2.2.3">
 		<param name="StatusBarOverlaysWebView" value="false" />
 </gap:plugin>
@@ -110,15 +111,15 @@
 	<access origin="https://googleapis.com"/>
 	<access origin="https://googleusercontent.com"/>
 	
-	<access origin="http://www.google.com" launch-external="yes"/>
-	<access origin="https://www.google.com" launch-external="yes"/>
+	<allow-intent href="http://www.google.com"/>
+	<allow-intent href="https://www.google.com"/>
 	
-	<access origin="http://waze.to" launch-external="yes"/>
+	<allow-intent href="http://waze.to"/>
 	
-	<access origin="http://egertcohen.co.il" subdomains="true"/>
-	<access origin="https://www.ctas.co.il" subdomains="true"/>
+	<access origin="http://egertcohen.co.il"/>
+	<access origin="http://*.egertcohen.co.il"/>
 	
-	<access origin="tel:*" launch-external="yes"/>
+	<allow-intent href="tel:*">
 	
     <!--
         <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
