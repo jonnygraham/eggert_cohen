@@ -54,9 +54,6 @@
 <gap:plugin name="cordova-plugin-statusbar" source="npm" version="2.2.3">
 		<param name="StatusBarOverlaysWebView" value="false" />
 </gap:plugin>
-<gap:plugin name="cordova-plugin-customurlscheme" source="npm" version="4.3.0">
-  <param name="URL_SCHEME" value="mycoolapp" />
-</gap:plugin>
 <gap:plugin name="cordova-plugin-dialogs" source="npm" verson="1.3.3" />
 <gap:plugin name="cordova-plugin-geolocation" source="npm" verson="2.4.3" />
 

@@ -92,46 +92,6 @@ function getMedicalCenters(url) {
 var defaultZoom = 16;
 var map;
 
-function populateMyCard(card) {
-	if (card != null) {
-		var name = "";
-		if (card.firstname != null) name = card.firstname;
-		if (card.lastname != null) name += " "+card.lastname;
-		var passport = "";
-		if (card.passport != null) passport = card.passport;
-		var policyNumber = "";
-		if (card.policynumberextension != null && card.policynumberextension !== "") policyNumber = card.policynumberextension;
-		else if (card.policynumber != null && card.policynumber !== "") {
-			policyNumber = card.policynumber;
-		}
-		// When they first sign up there's not a real policy number yet
-		// so use the id
-		else if (card.id != null) {
-				policyNumber = card.id;
-		}
-		var buscode = "";
-		if (card.buscode != null) buscode = card.buscode;
-		var operator = "";
-		if (card.operator != null) operator = card.operator;
-		var cardDates = "";
-		if (card.policystartdate != null && card.policystartdate !== "") {
-			cardDates += formatDate(card.policystartdate);
-			if (card.policyenddate != null && card.policyenddate !== "") {
-				cardDates += " - "+formatDate(card.policyenddate);
-			}
-		}
-		
-		$("#myCardName").html(name);
-		$("#myCardPassport").html(passport);
-		$("#myCardPolicyNumber").html(policyNumber);
-		$("#myCardBusCode").html(buscode);
-		$("#myCardOperator").html(operator);
-		$("#myCardDates").html(cardDates);
-		
-		$('#myCardRefreshButton').removeClass('ui-disabled');
-	}
-};
-
 function monthToStr(month) {
 	var monthStrings = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 	return monthStrings[Number(month)-1];
@@ -145,79 +105,6 @@ function formatDate(dateStr) {
 	return day+" "+monthToStr(month)+" "+year;
 }
 
-function storeCard(card) {
-	localStorage.setItem("cardDetails",JSON.stringify(card));
-}
-
-function loadCard() {
-	var stringifiedCard = localStorage.getItem("cardDetails");
-	if (stringifiedCard === null) return null;
-	var card = null;
-	try{
-        card = JSON.parse(stringifiedCard);
-    }catch(e){
-        localStorage.setItem("cardDetails",null);
-    }
-	return card;
-}
-
-function removeNonNums(str) {
-	return str.replace(/\D/g,''); 
-}
-function removeNonAlpanum(str) {
-	return str.replace(/\W/g,''); 
-}
-function fetchCardBySignup(id, code) {
-	var url = 'https://www.ctas.co.il/card/?id='+removeNonNums(id)+'&code='+removeNonNums(code);
-	fetchCard(url,"Signup completed! You can view your policy information by tapping the 'Me' button.");
-}
-function fetchCardByPassport(passportNumber,isRefresh) {
-	var cleansedPassportNumber = removeNonAlpanum(passportNumber);
-	var refreshParam = "&refresh="+isRefresh;
-	var url = 'https://www.ctas.co.il/card/?pass='+cleansedPassportNumber+refreshParam;
-	fetchCard(url,"");
-}
-
-function fetchCard(url, successMsg) {
-	$.mobile.loading( 'show', {text : "Please wait. Looking up information..." ,textVisible : true} );
-	$.ajax({
-		cache: false,
-		url: url,
-		dataType: "json",
-		timeout: 10000,
-		success: function (cardData) {
-			if (cardData.error) {
-				alert(cardData.error);
-			} else {
-				storeCard(cardData);
-				populateMyCard(cardData);
-				if (successMsg !== "") {
-					alert(successMsg);
-				}
-			}
-			$.mobile.loading( 'hide' );
-		},
-		error: function(jqXHR, textStatus, errorThrown) {
-			alert("Unable to reach server to find your card. Please check your connection to the internet or try again later.");
-			$.mobile.loading( 'hide' );
-		}
-	});
-}
-function handleOpenURL(url) {
-	var paramId = "";
-	var paramCode = "";
-
-	var matches = url.match(/id=([0-9]*)/)
-	if (matches !== null && matches.length >= 2) paramId = matches[1];
-
-	matches = url.match(/code=([0-9]*)/);
-	if (matches !== null && matches.length >= 2) paramCode = matches[1];
-	if (paramId !== "" && paramCode !== "") {
-		setTimeout(function() {
-			fetchCardBySignup(paramId, paramCode);
-		}, 0);
-	}
-}
 
 function whenReady() {
 
@@ -235,30 +122,6 @@ function whenReady() {
 		var centerType = localStorage.getItem("centerType")
 		$("#centerTypeTitle").html(centerType)
 		$('#areaSelector').trigger('change');
-	});
-	$("#myCard").on("pageshow", function onPageShow(e,data) {
-		var card = loadCard();
-		populateMyCard(card);
-	});
-	$("#myCardRefreshButton").on('click', function() {
-		var card = loadCard();
-		if (card !== null) {
-			fetchCardByPassport(card.passport,true);
-		} else {
-			alert("Unable to refresh.");
-		}
-		return false;
-	});
-	$("#myCardFindButton").on('click', function() { // catch the form's submit event
-		var passportNumber = $('#passportNumber').val();
-		console.log("fetching "+passportNumber);
-		if(passportNumber.length > 0){
-			fetchCardByPassport(passportNumber,false);
-			$("#popupCardFind").popup('close');
-		} else {
-			alert('Please enter your passport number');
-		}           
-		return false; // cancel original event to prevent form submitting
 	});
 
 	$("#areaSelector").change(function () {
