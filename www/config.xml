@@ -5,7 +5,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
 		xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "il.egertcohen"
-        version   = "1.3.1">
+        version   = "1.3.0">
 <!-- ios: id="il.egertcohen.medical-services-locator"
      android: id="il.egertcohen"
 -->
@@ -51,12 +51,12 @@
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
 
-	
-<plugin name="cordova-plugin-statusbar" source="npm" version="2.2.3">
+	<gap:plugin name="cordova-plugin-whitelist" source="npm" version="1.3.3" />
+<gap:plugin name="cordova-plugin-statusbar" source="npm" version="2.2.3">
 		<param name="StatusBarOverlaysWebView" value="false" />
-</plugin>
-<plugin name="cordova-plugin-dialogs" source="npm" version="1.3.4" />
-<plugin name="cordova-plugin-geolocation" source="npm" version="3.0.0" />
+</gap:plugin>
+<gap:plugin name="cordova-plugin-dialogs" source="npm" version="1.3.4" />
+<gap:plugin name="cordova-plugin-geolocation" source="npm" version="3.0.0" />
 
 	<gap:config-file platform="android" parent="/manifest/application">
 	  <activity android:launchMode="singleTask"/>
@@ -98,9 +98,7 @@
 
         Otherwise, you can specify specific domains:
     -->
-	<access origin="*"/>
-	<plugin name="cordova-plugin-whitelist" />
-	<!--
+	
 	<access origin="http://maps.google.com"/>
 	<access origin="http://*.gstatic.com"/>
 	<access origin="http://*.googleapis.com"/>
@@ -111,14 +109,17 @@
 	<access origin="https://*.googleusercontent.com"/>
 	<access origin="https://gstatic.com"/>
 	<access origin="https://googleapis.com"/>
-	<access origin="https://googleusercontent.com"/>-->
+	<access origin="https://googleusercontent.com"/>
 	
 	<allow-intent href="http://www.google.com"/>
 	<allow-intent href="https://www.google.com"/>
 	
 	<allow-intent href="http://waze.to"/>
 	
-	<allow-intent href="tel:*">
+	<access origin="http://egertcohen.co.il"/>
+	<access origin="http://*.egertcohen.co.il"/>
+	
+	<allow-intent href="tel:*"/>
 	
     <!--
         <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
