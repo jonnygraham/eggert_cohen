@@ -112,7 +112,7 @@ function whenReady() {
 	//if(typeof StatusBar !== 'undefined') StatusBar.overlaysWebView(false);
 	document.addEventListener("resume", onResume, false);
 	FastClick.attach(document.body);
-	if (navigator.splashscreen) navigator.splashscreen.hide();
+	//if (navigator.splashscreen) navigator.splashscreen.hide();
 	getMedicalCenters("http://egertcohen.co.il/medicalCentersData.json")
 	$("#centerDetails").on("pageshow", function onPageShow(e,data) {
 		displayMedicalCenterById(localStorage.getItem("centerId"));
