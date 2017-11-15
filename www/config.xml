@@ -45,6 +45,10 @@
 
 	<preference name="splash-screen-duration" value="60000" />
 	<preference name="load-url-timeout" value="60000" />
+	
+	<config-file platform="android" parent="/manifest" mode="merge">
+		<application android:theme="@android:style/Theme.Translucent.NoTitleBar"></application>
+	</config-file>
     <!-- Plugins can also be added here. -->
     <!--
         <gap:plugin name="Example" />
