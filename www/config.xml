@@ -75,6 +75,8 @@
 	<icon src="icon.png" />
     <splash src="splash.png" />
 	<platform name="android">
+		<preference name="SplashScreen" value="splash.png" />
+		<preference name="SplashScreenDelay" value="3000" />
 		<icon density="ldpi" src="res/icons/android/ldpi.png"/>
 		<icon density="mdpi" src="res/icons/android/mdpi.png"/>
 		<icon density="hdpi" src="res/icons/android/hdpi.png"/>
