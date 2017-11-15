@@ -77,9 +77,12 @@
 	<icon src="icons/ios/icon-76@2x.png" gap:platform="ios" width="152" height="152" />
 
     <!-- Define app splash screen for each platform. -->
-	<gap:splash src="icons/logo.png"/>
-	
-	<gap:splash src="icons/ios/splash-568h@2x.png" gap:platform="ios" width="640" height="1136" />
+	<platform name="android">
+		<splash src="icons/logo.png"/>
+	</platform>
+	<platform name="ios">
+		<splash src="icons/ios/splash-568h@2x.png" width="640" height="1136" />
+	</platform>
     <!--
 	<gap:splash src="splash/ios/Default.png" gap:platform="ios" width="320" height="480" />
 	<gap:splash src="splash/ios/Default_at_2x.png" gap:platform="ios" width="640" height="960" />
@@ -99,25 +102,12 @@
         Otherwise, you can specify specific domains:
     -->
 	
-	<access origin="http://maps.google.com"/>
-	<access origin="http://*.gstatic.com"/>
-	<access origin="http://*.googleapis.com"/>
-	<access origin="http://*.googleusercontent.com"/>
-	<access origin="https://maps.google.com"/>
-	<access origin="https://*.gstatic.com"/>
-	<access origin="https://*.googleapis.com"/>
-	<access origin="https://*.googleusercontent.com"/>
-	<access origin="https://gstatic.com"/>
-	<access origin="https://googleapis.com"/>
-	<access origin="https://googleusercontent.com"/>
+	<access origin="*" />
 	
-	<allow-intent href="http://www.google.com"/>
-	<allow-intent href="https://www.google.com"/>
+	<allow-intent href="http://*/*" />
+	<allow-intent href="https://*/*" />
 	
 	<allow-intent href="http://waze.to"/>
-	
-	<access origin="http://egertcohen.co.il"/>
-	<access origin="http://*.egertcohen.co.il"/>
 	
 	<allow-intent href="tel:*"/>
 	
