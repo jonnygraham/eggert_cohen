@@ -57,7 +57,7 @@
 
 	<!-- GPS permissions aren't being added by the plugin for some reason, so add them explicitly -->
 	<platform name="android">
-		<config-file target="AndroidManifest.xml" parent="/*">
+		<config-file parent="/manifest" mode="merge">
 			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 			<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 		</config-file>
