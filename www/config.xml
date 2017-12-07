@@ -64,6 +64,10 @@
 	<plugin name="cordova-plugin-dialogs" source="npm" version="1.3.4" />
 	<plugin name="cordova-plugin-geolocation" source="npm" version="2.4.3" />
 
+	<edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+		<string>This app needs location access to find nearby medical centres</string>
+	</edit-config>
+	
 	<config-file platform="android" parent="/manifest/application">
 	  <activity android:launchMode="singleTask"/>
 	</config-file>
